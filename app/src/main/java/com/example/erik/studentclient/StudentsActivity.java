@@ -13,7 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.example.erik.studentclient.trash.MockData;
+import com.example.erik.studentclient.formatables.FormatableMockData;
+import com.example.erik.studentclient.formatables.Student;
 
 import java.util.List;
 import java.util.stream.Collectors;

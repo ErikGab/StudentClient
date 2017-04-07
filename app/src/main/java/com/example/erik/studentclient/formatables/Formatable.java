@@ -1,4 +1,4 @@
-package com.example.erik.studentclient;
+package com.example.erik.studentclient.formatables;
 
 import java.util.Map;
 import java.util.List;

@@ -19,7 +19,6 @@
         <activity android:name=".StudentsActivity" />
         <activity android:name=".CoursesActivity" />
         <activity android:name=".InfoActivity" />
-        <activity android:name=".trash.StudentInfoActivity"></activity>
     </application>
 
 </manifest>

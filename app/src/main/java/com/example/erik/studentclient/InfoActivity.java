@@ -2,13 +2,11 @@ package com.example.erik.studentclient;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.erik.studentclient.formatables.Formatable;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,19 +24,10 @@ public class InfoActivity extends AppCompatActivity {
         currentItem = Session.getInstance().lastClick;
         subitemTypes = findSubitemTypes();
 
-        TextView propertiesHeader = (TextView) findViewById(R.id.properties_textview);
-        if (currentItem.getItemType().equals("student")){
-            propertiesHeader.setText(R.string.course_info_header);
-        } else if (currentItem.getItemType().equals("course")){
-            propertiesHeader.setText(R.string.course_info_header);
-        } else {
-            propertiesHeader.setText(currentItem.getItemType());
-        }
+        ListView propertieslistView = (ListView) findViewById(R.id.item_info_listview);
+        propertieslistView.setAdapter(new ListViewRowAdapter(transformFormatableForListView()));
 
-        ListView propertieslistView = (ListView) findViewById(R.id.properties_listview);
-        propertieslistView.setAdapter(new MapAdapter(flattenFormatable()));
-
-        LinearLayout layout = (LinearLayout) findViewById(R.id.formatable_item_layout);
+        //LinearLayout layout = (LinearLayout) findViewById(R.id.formatable_item_layout);
 
     }
 
@@ -52,22 +41,36 @@ public class InfoActivity extends AppCompatActivity {
         return returningList;
     }
 
-    private Map<String,String> flattenFormatable(){
-        Map<String,String> mapForListView = currentItem.getProperties();
+
+    private List<ListViewRow> transformFormatableForListView(){
+        List<ListViewRow> returningList = new ArrayList<>();
+        returningList.add(new ListViewRow(ListViewRow.TYPE.HEADER, currentItem.getItemType()+" Information:"));
+        for (String key:currentItem.getProperties().keySet()){
+            returningList.add(new ListViewRow(ListViewRow.TYPE.STUDENT, key, currentItem.getProperties().get(key)));
+        }
         for (String type:subitemTypes) {
             if (type.equals("phonenumbers")) {
+                returningList.add(new ListViewRow(ListViewRow.TYPE.HEADER, "Phonenumbers:"));
                 Map<String, String> phonenumbers = currentItem.getSubItems().stream().filter(f -> f.getItemType().equals(type)).collect(Collectors.toList()).get(0).getProperties();
                 for (String phonetype : phonenumbers.keySet()) {
-                    mapForListView.put("phone: " + phonetype, phonenumbers.get(phonetype));
+                    returningList.add(new ListViewRow(ListViewRow.TYPE.OTHER, phonetype, phonenumbers.get(phonetype)));
                 }
             } else if (type.equals("course") || type.equals("student")) {
+                returningList.add(new ListViewRow(ListViewRow.TYPE.HEADER, type+"s:"));
                 List<Formatable> items = currentItem.getSubItems().stream().filter(f -> f.getItemType().equals(type)).collect(Collectors.toList());
                 for (Formatable item:items){
-                    mapForListView.put(item.getItemType(), item.toListViewString());
+                    returningList.add(new ListViewRow(convertStringToTYPE(type), item.toListViewString() ));
                 }
             }
         }
-        return mapForListView;
+        return returningList;
     }
+
+    private ListViewRow.TYPE convertStringToTYPE(String typeAsString){
+        if (typeAsString.equals("student")) { return ListViewRow.TYPE.STUDENT; }
+        else if (typeAsString.equals("course")) { return ListViewRow.TYPE.COURSE; }
+        else { return ListViewRow.TYPE.OTHER; }
+    }
+
 
 }

@@ -1,6 +1,9 @@
 package com.example.erik.studentclient;
 
 
+import com.example.erik.studentclient.formatables.Course;
+import com.example.erik.studentclient.formatables.Formatable;
+import com.example.erik.studentclient.formatables.Student;
 
 public class Session {
 

@@ -4,16 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/formatable_item_layout">
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/properties_textview"
-            android:textSize="28dp">
-        </TextView>
         <ListView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/properties_listview"
-            android:layout_weight="1">
+            android:layout_height="fill_parent"
+            android:id="@+id/item_info_listview">
         </ListView>
 </LinearLayout>

@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.erik.studentclient.formatables.Course;
+import com.example.erik.studentclient.formatables.FormatableMockData;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
