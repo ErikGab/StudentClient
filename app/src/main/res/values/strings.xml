@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">StudentClient</string>
+    <string name="student_btn_text">Students</string>
+    <string name="course_btn_text">Courses</string>
+    <string name="settings_btn_text">Settings</string>
+    <string name="student_selector_text">Students in:</string>
+    <string name="student_search_text">Search:</string>
+    <string name="course_selector_text">Courses in:</string>
+    <string name="course_info_header">Course information:</string>
+    <string name="course_member_header">Students in course:</string>
+    <string name="student_info_header">Student:</string>
+    <string name="student_member_header">Courses:</string>
+</resources>
