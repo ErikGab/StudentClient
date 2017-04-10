@@ -15,6 +15,10 @@ import android.widget.Spinner;
 
 import com.example.erik.studentclient.formatables.FormatableMockData;
 import com.example.erik.studentclient.formatables.Student;
+import com.example.erik.studentclient.storage.DataRetievalService;
+import com.example.erik.studentclient.storage.DataRetrievalException;
+import com.example.erik.studentclient.storage.JSONMockDataRetriever;
+import com.example.erik.studentclient.parseresponse.DataParserUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +30,7 @@ public class StudentsActivity extends AppCompatActivity {
     EditText inputSearch;
     List<String> coursesList;
     List<Student> studentsList, studentsListReduced;
+    DataRetievalService drs;
 
     private static final String TAG = "StudentsActivity";
 
@@ -34,8 +39,17 @@ public class StudentsActivity extends AppCompatActivity {
         Log.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students);
+        drs = DataRetievalService.getInstance();
+
         coursesList = FormatableMockData.getCoursesByYear(0).stream().map(c -> c.getName()).collect(Collectors.toList());
-        studentsList = FormatableMockData.getStudentsByCourse(0);
+        //studentsList = FormatableMockData.getStudentsByCourse(0);
+        try {
+            studentsList = drs.allStudents();
+        } catch (DataRetrievalException dre) {
+            Log.v(TAG, "onCreate: Failed to retrieve students!");
+            Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         studentsListReduced = FormatableMockData.getStudentsByCourse(0).stream()
                                                                         .filter(f -> f.getId() < 50)
                                                                         .collect(Collectors.toList());
