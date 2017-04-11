@@ -2,6 +2,7 @@ package com.example.erik.studentclient;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.example.erik.studentclient.formatables.Formatable;
@@ -15,10 +16,12 @@ public class InfoActivity extends AppCompatActivity {
 
     private Formatable currentItem;
     private List<String> subitemTypes;
+    private static final String TAG = "InfoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate");
         setContentView(R.layout.activity_item_info);
 
         currentItem = Session.getInstance().lastClick;
@@ -32,6 +35,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private List<String> findSubitemTypes(){
+        Log.v(TAG, "findSubitemTypes");
         List<String> returningList = new ArrayList<>();
         for(Formatable item:currentItem.getSubItems()){
             if (!returningList.contains(item.getItemType())){
@@ -43,6 +47,7 @@ public class InfoActivity extends AppCompatActivity {
 
 
     private List<ListViewRow> transformFormatableForListView(){
+        Log.v(TAG, "transformFormatableForListView");
         List<ListViewRow> returningList = new ArrayList<>();
         returningList.add(new ListViewRow(ListViewRow.TYPE.HEADER, currentItem.getItemType()+" Information:"));
         for (String key:currentItem.getProperties().keySet()){
@@ -67,6 +72,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private ListViewRow.TYPE convertStringToTYPE(String typeAsString){
+        Log.v(TAG, "convertStringToTYPE");
         if (typeAsString.equals("student")) { return ListViewRow.TYPE.STUDENT; }
         else if (typeAsString.equals("course")) { return ListViewRow.TYPE.COURSE; }
         else { return ListViewRow.TYPE.OTHER; }

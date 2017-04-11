@@ -1,5 +1,7 @@
 package com.example.erik.studentclient.formatables;
 
+import android.util.Log;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -10,7 +12,9 @@ public class FormatableMockData {
 
     private static List<Student> mockDataFullStudent, mockDataStudent;
     private static List<Course> mockDataFullCourse, mockDataCourse;
+    private static final String TAG = "FormatableMockData";
     static {
+        Log.v(TAG, "static block running");
         mockDataFullStudent = new ArrayList<Student>();
         mockDataFullStudent.add(new Student(74,
                 new LinkedHashMap<String,String>() {{
@@ -96,15 +100,19 @@ public class FormatableMockData {
         }}));
     }
     public static List<Student> getStudent(int id) {
+        Log.v(TAG, "returning detailed list of students");
         return mockDataFullStudent;
     }
     public static List<Course> getCourse(int id) {
+        Log.v(TAG, "returning detailed list of courses");
         return mockDataFullCourse;
     }
     public static List<Student> getStudentsByCourse(int id) {
+        Log.v(TAG, "returning list of students");
         return mockDataStudent;
     }
     public static List<Course> getCoursesByYear(int id) {
+        Log.v(TAG, "returning list of courses");
         return mockDataCourse;
     }
 }

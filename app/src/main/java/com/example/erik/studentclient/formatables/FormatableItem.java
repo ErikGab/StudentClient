@@ -1,5 +1,7 @@
 package com.example.erik.studentclient.formatables;
 
+import android.util.Log;
+
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -10,17 +12,20 @@ public class FormatableItem implements Formatable {
     private String itemType;
     private Map<String, String> properties;
     private List<Formatable> subItems = new ArrayList<>();
+    private static final String TAG = "FormatableItem";
 
     public FormatableItem(String itemType, int id, Map<String,String> properties, List<Formatable> subItems){
         this.id = id;
         this.itemType = itemType;
         this.properties = properties;
         this.subItems = subItems;
+        Log.v(TAG, "new created of type "+itemType+" with id "+id);
     }
     public FormatableItem(String itemType, int id, Map<String,String> properties){
         this.id = id;
         this.itemType = itemType;
         this.properties = properties;
+        Log.v(TAG, "new created of type "+itemType+" with id "+id);
     }
     public void addSubItem(Formatable item){
         subItems.add(item);

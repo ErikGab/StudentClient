@@ -1,5 +1,7 @@
 package com.example.erik.studentclient.formatables;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,12 +13,14 @@ public class Student implements Formatable{
     private final String ITEMTYPE = "student";
     private Map<String, String> properties;
     private List<Formatable> subItems = new ArrayList<>();
+    private static final String TAG = "Student";
 
     public Student(int id, String name, String surname){
         this.id = id;
         properties = new LinkedHashMap<>();
         properties.put("name", name);
         properties.put("surname", surname);
+        Log.v(TAG, "new created with id "+id);
     }
     public Student(int id, String name, String surname, int age, String postAddress, String streetAddress){
         this(id, name, surname, age, postAddress, streetAddress, null, null);
@@ -43,15 +47,18 @@ public class Student implements Formatable{
                 subItems.add(course);
             }
         }
+        Log.v(TAG, "new created with id "+id);
     }
     public Student(int id, Map<String,String> properties, List<Formatable> subItems){
         this.id = id;
         this.properties = properties;
         this.subItems = subItems;
+        Log.v(TAG, "new created with id "+id);
     }
     public Student(int id, Map<String,String> properties){
         this.id = id;
         this.properties = properties;
+        Log.v(TAG, "new created with id "+id);
     }
     @Override
     public int getId(){
@@ -80,10 +87,12 @@ public class Student implements Formatable{
 
     @Override
     public String toString(){
+        Log.v(TAG, "with id "+id+ " returning String");
         return getName() + " " + getSurname();
     }
 
     public String toListViewString(){
+        Log.v(TAG, "with id "+id+ " returning ListViewString");
         return new StringBuilder()
                 .append(getName())
                 .append(" ")

@@ -3,6 +3,7 @@ package com.example.erik.studentclient;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,10 +22,12 @@ public class CoursesActivity extends AppCompatActivity {
     private Spinner yearSpinner;
     private List<Course> coursesList;
     private ListView listView;
+    private static final String TAG = "CoursesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate");
         setContentView(R.layout.activity_courses);
 
         yearList = FormatableMockData.getCoursesByYear(0).stream()
@@ -49,6 +52,7 @@ public class CoursesActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
+        Log.v(TAG, "onCreate: Spinner Done");
 
         coursesList = FormatableMockData.getCoursesByYear(0);
         listView = (ListView) findViewById(R.id.course_listview);
@@ -63,7 +67,7 @@ public class CoursesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        Log.v(TAG, "onCreate: Listview Done");
     }
 
 }

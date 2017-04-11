@@ -1,6 +1,9 @@
 package com.example.erik.studentclient.formatables;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,16 +13,20 @@ public class Course implements Formatable {
     private final String ITEMTYPE = "course";
     private Map<String, String> properties;
     private List<Formatable> subItems = new ArrayList<>();
+    private static final String TAG = "Course";
 
     public Course(int id, String name){
         this.id = id;
+        properties = new LinkedHashMap<>();
         properties.put("name",name);
+        Log.v(TAG, "new created with id "+id);
     }
     public Course(int id, String startDate, String endDate, String name, int points, String description){
         this(id, startDate, endDate, name, points, description, null);
     }
     public Course(int id, String startDate, String endDate, String name, int points, String description, List<Student> students){
         this.id = id;
+        properties = new LinkedHashMap<>();
         properties.put("startDate", startDate);
         properties.put("endDate", endDate);
         properties.put("name", name);
@@ -31,15 +38,18 @@ public class Course implements Formatable {
                 subItems.add(student);
             }
         }
+        Log.v(TAG, "new created with id "+id);
     }
     public Course(int id, Map<String,String> properties, List<Formatable> subItems){
         this.id = id;
         this.properties = properties;
         this.subItems = subItems;
+        Log.v(TAG, "new created with id "+id);
     }
     public Course(int id, Map<String,String> properties){
         this.id = id;
         this.properties = properties;
+        Log.v(TAG, "new created with id "+id);
     }
 
     @Override
@@ -70,10 +80,12 @@ public class Course implements Formatable {
 
     @Override
     public String toString(){
+        Log.v(TAG, "with id "+id+" returning String");
         return getName() + " id(" + Integer.toString(id) + ")";
     }
 
     public String toListViewString(){
+        Log.v(TAG, "with id "+id+" returning ListViewString");
         return new StringBuilder().append(getName()).append(" ").append(String.valueOf(properties.get("description"))).toString();
     }
 }
