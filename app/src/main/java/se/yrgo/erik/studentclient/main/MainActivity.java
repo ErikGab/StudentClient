@@ -9,43 +9,44 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+  private static final String TAG = "MainActivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.v(TAG, "onCreate");
-        setContentView(R.layout.activity_main);
-        Button studentButton = (Button) findViewById(R.id.students_btn);
-        Button courseButton = (Button) findViewById(R.id.courses_btn);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Log.v(TAG, "onCreate");
+    setContentView(R.layout.activity_main);
+    Button studentButton = (Button) findViewById(R.id.students_btn);
+    Button courseButton = (Button) findViewById(R.id.courses_btn);
 
-        studentButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch2StudentsActivity();
-            }
-        });
+    studentButton.setOnClickListener( new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        //Session.getInstance().selectActivity= Session.ListType.STUDENT;
+        switch2StudentsActivity();
+      }
+    });
 
-        courseButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch2CoursesActivity();
-            }
-        });
+    courseButton.setOnClickListener( new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        //Session.getInstance().selectActivity= Session.ListType.COURSE;
+        switch2CoursesActivity();
+      }
+    });
+  }
 
-    }
+  private void switch2StudentsActivity() {
+    Log.v(TAG, "switch2StudentsActivity");
+    Intent intent = new Intent(this, StudentsActivity.class);
+    startActivity(intent);
+  }
 
-    private void switch2StudentsActivity() {
-        Log.v(TAG, "switch2StudentsActivity");
-        Intent intent = new Intent(this, StudentsActivity.class);
-        startActivity(intent);
-    }
-
-    private void switch2CoursesActivity() {
-        Log.v(TAG, "switch2CoursesActivity");
-        Intent intent = new Intent(this, CoursesActivity.class);
-        startActivity(intent);
-    }
+  private void switch2CoursesActivity() {
+    Log.v(TAG, "switch2CoursesActivity");
+    Intent intent = new Intent(this, CoursesActivity.class);
+    startActivity(intent);
+  }
 
 }
 

@@ -1,35 +1,36 @@
 package se.yrgo.erik.studentclient.main;
 
 public class ListViewRow {
-    private TYPE rowType;
-    private String rowName;
-    private String rowData;
+  private TYPE rowType;
+  private String rowName;
+  private String rowData;
 
-    public ListViewRow(TYPE rowType, String rowData){
-        this(rowType, null, rowData);
-    }
-    public ListViewRow(TYPE rowType,String rowName, String rowData){
-        this.rowData = rowData;
-        this.rowName = rowName;
-        this.rowType = rowType;
-    }
+  public ListViewRow(TYPE rowType, String rowData) {
+    this(rowType, null, rowData);
+  }
 
-    public TYPE getRowType(){
-        return rowType;
-    }
+  public ListViewRow(TYPE rowType,String rowName, String rowData) {
+    this.rowData = rowData;
+    this.rowName = rowName;
+    this.rowType = rowType;
+  }
 
-    public String getRowName(){
-        return rowName;
-    }
+  public TYPE getRowType() {
+    return rowType;
+  }
 
-    public String getRowData(){
-        return rowData;
-    }
+  public String getRowName() {
+    return rowName;
+  }
 
-    public static enum TYPE {
-        HEADER,
-        STUDENT,
-        COURSE,
-        OTHER;
-    }
+  public String getRowData() {
+    return rowData;
+  }
+
+  public static enum TYPE {
+    HEADER,
+    STUDENT,
+    COURSE,
+    OTHER;
+  }
 }
