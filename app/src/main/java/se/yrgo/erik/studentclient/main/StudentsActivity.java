@@ -171,6 +171,7 @@ public class StudentsActivity extends AppCompatActivity {
         Log.v(TAG, "onCreate: Failed to retrieve items!\n"+dre.getMessage());
        Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
         startActivity(intent);
+        this.cancel(true);
       }
 
       return null;
@@ -208,6 +209,7 @@ public class StudentsActivity extends AppCompatActivity {
         Log.v(TAG, "setOnItemSelectedListener: Failed to retrieve students!\n" + dre.getMessage());
         Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
         startActivity(intent);
+        this.cancel(true);
       }
       return null;
     }
@@ -228,11 +230,16 @@ public class StudentsActivity extends AppCompatActivity {
       try {
         Session.getInstance().clickedStudent = drs.fullInfoForStudent(listViewClickId).get(0);
         Session.getInstance().lastClick = Session.getInstance().clickedStudent;
-
       } catch (DataRetrievalException dre) {
         Log.v(TAG, "setOnItemClickListener: Failed to retrieve student!\n" + dre.getMessage());
         Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
         startActivity(intent);
+        this.cancel(true);
+      } catch (IndexOutOfBoundsException ioobe) {
+        Log.v(TAG, "setOnItemClickListener: Failed to retrieve student!");
+        Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+        startActivity(intent);
+        this.cancel(true);
       }
       return null;
     }

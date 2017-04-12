@@ -94,6 +94,8 @@ public class JSONDataRetriever implements DataRetriever {
   public List<Course> allCourses() throws DataRetrievalException {
     Map<String,String> getParams = new HashMap<>();
     getParams.put("type", "course");
+    getParams.put("by", "year");
+    getParams.put("id", "all");
     getParams.put("format", "json");
     try {
       String response =
