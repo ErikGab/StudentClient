@@ -1,6 +1,7 @@
 package se.yrgo.erik.studentclient.main;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,7 @@ import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.storage.DataRetievalService;
 import se.yrgo.erik.studentclient.storage.DataRetrievalException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +31,7 @@ public class StudentsActivity extends AppCompatActivity {
   private List<Course> coursesList;
   private List<Student> studentsList;
   private DataRetievalService drs;
+  private int listViewClickId;
 
   private static final String TAG = "StudentsActivity";
 
@@ -39,68 +42,73 @@ public class StudentsActivity extends AppCompatActivity {
     Log.v(TAG, "onCreate");
     drs = DataRetievalService.getInstance();
 
-    try {
-      studentsList = drs.allStudents();
-      coursesList = drs.allCourses();
-    } catch (DataRetrievalException dre) {
-      Log.v(TAG, "onCreate: Failed to retrieve items!\n"+dre.getMessage());
-      Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
-      startActivity(intent);
-    }
+    //try {
+    //  studentsList = drs.allStudents();
+    //  coursesList = drs.allCourses();
+    //} catch (DataRetrievalException dre) {
+    //  Log.v(TAG, "onCreate: Failed to retrieve items!\n"+dre.getMessage());
+    // Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+    //  startActivity(intent);
+    //}
+
 
     listView = (ListView) findViewById(R.id.student_listview);
-    listView.setAdapter(new ArrayAdapter<Student>(this, android.R.layout.simple_list_item_1,
-            studentsList)
-    );
+    new CollectAndInit().execute();
+    //listView.setAdapter(new ArrayAdapter<Student>(this, android.R.layout.simple_list_item_1,
+    //        studentsList)
+    //);
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        int studentId = ((Student) listView.getAdapter().getItem(position)).getId();
-        Log.v(TAG, "ListView clicked id: " + studentId);
-        try {
-          Session.getInstance().clickedStudent = drs.fullInfoForStudent(studentId).get(0);
-          Session.getInstance().lastClick = drs.fullInfoForStudent(studentId).get(0);
-          Intent intent = new Intent(StudentsActivity.this, InfoActivity.class);
-          startActivity(intent);
-        } catch (DataRetrievalException dre) {
-          Log.v(TAG, "setOnItemClickListener: Failed to retrieve student!\n"+dre.getMessage());
-          Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
-          startActivity(intent);
-        }
+        //int studentId = ((Student) listView.getAdapter().getItem(position)).getId();
+        listViewClickId = ((Student) listView.getAdapter().getItem(position)).getId();
+        Log.v(TAG, "ListView clicked id: " + listViewClickId);
+        new SwitchToInfoActivity().execute();
+//        try {
+//          Session.getInstance().clickedStudent = drs.fullInfoForStudent(studentId).get(0);
+//          Session.getInstance().lastClick = drs.fullInfoForStudent(studentId).get(0);
+//          Intent intent = new Intent(StudentsActivity.this, InfoActivity.class);
+//          startActivity(intent);
+//        } catch (DataRetrievalException dre) {
+//          Log.v(TAG, "setOnItemClickListener: Failed to retrieve student!\n"+dre.getMessage());
+//          Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+//          startActivity(intent);
+//        }
       }
     });
     Log.v(TAG, "onCreate: listView done");
 
     courseSpinner = (Spinner) findViewById(R.id.student_select_spinner);
-    courseSpinner.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,R.id.textview,
-            createListForSpinner(coursesList))
-    );
-    courseSpinner.setSelection(Session.getInstance().courseSpinnerPossision);
+    //courseSpinner.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,R.id.textview,
+    //        createListForSpinner(coursesList))
+    //);
+    //courseSpinner.setSelection(Session.getInstance().courseSpinnerPossision);
     courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
       @Override
       public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position,
                                  long id) {
         Session.getInstance().courseSpinnerPossision = position;
-        try {
-          if (position == 0) {
-            Log.v(TAG, "All courses selected in spinner");
-            studentsList = drs.allStudents();
-          } else {
-            int courseId = coursesList.get(position-1).getId();
-            //IMPORTANT! -1 on position on row above is due to an "all" element
-            // that is added first in spinnerlist, see:createListForSpinner
-            Log.v(TAG, "Course with id " + courseId + " selected in spinner");
-            studentsList = drs.allStudentsInCourse(courseId);
-          }
-          listView.setAdapter(new ArrayAdapter<Student>(StudentsActivity.this,
-                  android.R.layout.simple_list_item_1, studentsList)
-          );
-        } catch (DataRetrievalException dre) {
-          Log.v(TAG, "setOnItemSelectedListener: Failed to retrieve students!\n"+dre.getMessage());
-          Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
-          startActivity(intent);
-        }
+        new CourseSpinnerUpdate().execute();
+//        try {
+//          if (position == 0) {
+//            Log.v(TAG, "All courses selected in spinner");
+//            studentsList = drs.allStudents();
+//          } else {
+//            int courseId = coursesList.get(position-1).getId();
+//            //IMPORTANT! -1 on position on row above is due to an "all" element
+//            // that is added first in spinnerlist, see:createListForSpinner
+//            Log.v(TAG, "Course with id " + courseId + " selected in spinner");
+//            studentsList = drs.allStudentsInCourse(courseId);
+//          }
+//          listView.setAdapter(new ArrayAdapter<Student>(StudentsActivity.this,
+//                  android.R.layout.simple_list_item_1, studentsList)
+//          );
+//        } catch (DataRetrievalException dre) {
+//          Log.v(TAG, "setOnItemSelectedListener: Failed to retrieve students!\n"+dre.getMessage());
+//          Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+//          startActivity(intent);
+//        }
       }
 
       @Override
@@ -139,11 +147,102 @@ public class StudentsActivity extends AppCompatActivity {
 
   private List<String> createListForSpinner(List<Course> list) {
     Log.v(TAG, "createListForSpinner");
-    List<String> returnee = list.stream()
-            .map(c -> c.getName())
-            .collect(Collectors.toList()
-    );
+    List<String> returnee;
+    if (list == null || list.size() == 0 ) {
+      returnee = new ArrayList<String>();
+    } else {
+      returnee = list.stream()
+              .map(c -> c.getName())
+              .collect(Collectors.toList()
+              );
+    }
     returnee.add(0, "all");
     return returnee;
   }
+
+  private class CollectAndInit extends AsyncTask<Void, Void, Void> {
+
+    @Override
+    protected Void doInBackground(Void... params) {
+      try {
+        studentsList = drs.allStudents();
+        coursesList = drs.allCourses();
+      } catch (DataRetrievalException dre) {
+        Log.v(TAG, "onCreate: Failed to retrieve items!\n"+dre.getMessage());
+       Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+        startActivity(intent);
+      }
+
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void result) {
+      super.onPostExecute(result);
+      listView.setAdapter(new ArrayAdapter<Student>(StudentsActivity.this, android.R.layout.simple_list_item_1,
+              studentsList)
+      );
+      courseSpinner.setAdapter(new ArrayAdapter<String>(StudentsActivity.this, R.layout.spinner_item,R.id.textview,
+              createListForSpinner(coursesList))
+      );
+      courseSpinner.setSelection(Session.getInstance().courseSpinnerPossision);
+    }
+  }
+
+  private class CourseSpinnerUpdate extends AsyncTask<Void, Void, Void> {
+
+    @Override
+    protected Void doInBackground(Void... params) {
+      try {
+        if (Session.getInstance().courseSpinnerPossision == 0) {
+          Log.v(TAG, "All courses selected in spinner");
+          studentsList = drs.allStudents();
+        } else {
+          int courseId = coursesList.get(Session.getInstance().courseSpinnerPossision - 1).getId();
+          //IMPORTANT! -1 on position on row above is due to an "all" element
+          // that is added first in spinnerlist, see:createListForSpinner
+          Log.v(TAG, "Course with id " + courseId + " selected in spinner");
+          studentsList = drs.allStudentsInCourse(courseId);
+        }
+      } catch (DataRetrievalException dre) {
+        Log.v(TAG, "setOnItemSelectedListener: Failed to retrieve students!\n" + dre.getMessage());
+        Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+        startActivity(intent);
+      }
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute (Void result){
+      super.onPostExecute(result);
+      listView.setAdapter(new ArrayAdapter<Student>(StudentsActivity.this,
+              android.R.layout.simple_list_item_1, studentsList)
+      );
+    }
+  }
+
+  private class SwitchToInfoActivity extends AsyncTask<Void, Void, Void> {
+
+    @Override
+    protected Void doInBackground(Void... params) {
+      try {
+        Session.getInstance().clickedStudent = drs.fullInfoForStudent(listViewClickId).get(0);
+        Session.getInstance().lastClick = Session.getInstance().clickedStudent;
+
+      } catch (DataRetrievalException dre) {
+        Log.v(TAG, "setOnItemClickListener: Failed to retrieve student!\n" + dre.getMessage());
+        Intent intent = new Intent(StudentsActivity.this, MainActivity.class);
+        startActivity(intent);
+      }
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void result) {
+      super.onPostExecute(result);
+      Intent intent = new Intent(StudentsActivity.this, InfoActivity.class);
+      startActivity(intent);
+    }
+  }
+
 }

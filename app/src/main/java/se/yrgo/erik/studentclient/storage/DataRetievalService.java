@@ -7,6 +7,8 @@ import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.formatables.Student;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +16,9 @@ import java.util.Map;
 public class DataRetievalService implements DataRetriever {
 
   private static DataRetievalService instance;
-  private static final String SERVER_URL = "http://127.0.0.1:8080/StudentServiceAPI";
+  private static URL serverURL;
   private static String format = "json";
-  private static String className[] = {"se.yrgo.erik.studentclient.storage.JSONMockDataRetriever"};
+  private static String className[] = {"se.yrgo.erik.studentclient.storage.JSONMockDataRetriever", "se.yrgo.erik.studentclient.storage.JSONDataRetriever"};
   private static Map<String,DataRetriever> retrievers;
   private static final String TAG = "DataRetrievalService";
 
@@ -25,10 +27,16 @@ public class DataRetievalService implements DataRetriever {
     instance = new DataRetievalService();
     retrievers = new HashMap<>();
     try{
-      Log.v(TAG, "loading class" + className[0]);
-      Class.forName(className[0]);
+      Log.v(TAG, "loading class: " + className[1]);
+      Class.forName(className[1]);
     }catch(ClassNotFoundException cnfe){
       System.err.println(cnfe.getMessage());
+    }
+    try {
+      //serverURL = new URL ("http://127.0.0.1:8080/StudentServiceAPI");
+      serverURL = new URL ("http://10.0.2.2:8080/StudentServiceAPI");
+    } catch (MalformedURLException mue) {
+      serverURL = null;
     }
   }
 
@@ -46,6 +54,10 @@ public class DataRetievalService implements DataRetriever {
   public static void setFormat(String requestedFormat) {
     format = requestedFormat;
     Session.getInstance().format = requestedFormat;
+  }
+
+  public static URL getServerURL() {
+    return serverURL;
   }
 
   @Override

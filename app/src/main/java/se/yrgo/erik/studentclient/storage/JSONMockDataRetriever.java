@@ -18,7 +18,7 @@ public class JSONMockDataRetriever implements DataRetriever {
 
   static{
     Log.v(TAG, "static block running");
-    DataRetievalService.register("json", new JSONMockDataRetriever());
+    DataRetievalService.register("jsonMock", new JSONMockDataRetriever());
   }
 
   private JSONMockDataRetriever() {}

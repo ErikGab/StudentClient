@@ -35,7 +35,7 @@ public class DataParserUtil {
               returnee.add(new Student(c.getInt("id"),
                       c.getString("name"),
                       c.getString("surname"),
-                      c.getInt("age"),
+                      parseAge(c),
                       c.getString("postAddress"),
                       c.getString("streetAddress"),
                       extractPhoneNumber(c),
@@ -175,6 +175,16 @@ public class DataParserUtil {
       }
     }
     return returnee;
+  }
+
+  private static int parseAge(JSONObject object) throws DataParserException {
+    int age;
+    try {
+      age = object.getInt("age");
+    } catch (Exception e) {
+      age = 0;
+    }
+    return age;
   }
 
 }
