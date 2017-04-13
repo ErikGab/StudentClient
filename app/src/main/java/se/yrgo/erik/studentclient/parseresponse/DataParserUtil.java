@@ -18,9 +18,9 @@ public class DataParserUtil {
 
   private static final String TAG = "DataParserUtil";
 
-  public static List<Student> Json2Students(String json)  throws DataParserException {
+  public static List<Formatable> Json2Students(String json)  throws DataParserException {
     Log.v(TAG, "Json2Students");
-    List<Student> returnee = new ArrayList<Student>();
+    List<Formatable> returnee = new ArrayList<Formatable>();
     int skippedItems = 0;
     try {
       JSONObject jsonObj = new JSONObject(json);
@@ -61,9 +61,9 @@ public class DataParserUtil {
     return returnee;
   }
 
-  public static List<Course> Json2Course(String json) throws DataParserException {
+  public static List<Formatable> Json2Course(String json) throws DataParserException {
     Log.v(TAG, "Json2Course");
-    List<Course> returnee = new ArrayList<Course>();
+    List<Formatable> returnee = new ArrayList<Formatable>();
     int skippedItems = 0;
     try {
       JSONObject jsonObj = new JSONObject(json);

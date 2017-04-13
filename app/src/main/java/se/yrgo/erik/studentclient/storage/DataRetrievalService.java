@@ -13,22 +13,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataRetievalService implements DataRetriever {
+public class DataRetrievalService implements DataRetriever {
 
-  private static DataRetievalService instance;
+  private static DataRetrievalService instance;
   private static URL serverURL;
   private static String format = "json";
-  private static String className[] = {"se.yrgo.erik.studentclient.storage.JSONMockDataRetriever", "se.yrgo.erik.studentclient.storage.JSONDataRetriever"};
+  private static String classNames[] = {
+          "se.yrgo.erik.studentclient.storage.JSONMockDataRetriever",
+          "se.yrgo.erik.studentclient.storage.JSONDataRetriever"
+  };
   private static Map<String,DataRetriever> retrievers;
   private static final String TAG = "DataRetrievalService";
 
   static {
     Log.v(TAG, "static block running");
-    instance = new DataRetievalService();
+    instance = new DataRetrievalService();
     retrievers = new HashMap<>();
     try{
-      Log.v(TAG, "loading class: " + className[1]);
-      Class.forName(className[1]);
+      for (String className : classNames) {
+        Log.v(TAG, "loading class: " + className);
+        Class.forName(className);
+      }
     }catch(ClassNotFoundException cnfe){
       System.err.println(cnfe.getMessage());
     }
@@ -40,9 +45,9 @@ public class DataRetievalService implements DataRetriever {
     }
   }
 
-  private DataRetievalService() {};
+  private DataRetrievalService() {};
 
-  public static DataRetievalService getInstance() {
+  public static DataRetrievalService getInstance() {
     return instance;
   }
 
@@ -61,7 +66,7 @@ public class DataRetievalService implements DataRetriever {
   }
 
   @Override
-  public List<Student> allStudents() throws DataRetrievalException {
+  public List<Formatable> allStudents() throws DataRetrievalException {
     if (retrievers.containsKey(format)) {
       Log.v(TAG, "Returning allStudents retrieved in format " + format);
       return retrievers.get(format).allStudents();
@@ -72,7 +77,7 @@ public class DataRetievalService implements DataRetriever {
   }
 
   @Override
-  public List<Student> allStudentsInCourse(int id) throws DataRetrievalException {
+  public List<Formatable> allStudentsInCourse(int id) throws DataRetrievalException {
     if (retrievers.containsKey(format)) {
       Log.v(TAG, "Returning allStudentsInCourse " + id + " retrieved in format " + format);
       return retrievers.get(format).allStudentsInCourse(id);
@@ -83,7 +88,7 @@ public class DataRetievalService implements DataRetriever {
   }
 
   @Override
-  public List<Student> fullInfoForStudent(int studentId) throws DataRetrievalException {
+  public List<Formatable> fullInfoForStudent(int studentId) throws DataRetrievalException {
     if (retrievers.containsKey(format)) {
       Log.v(TAG, "Returning fullInfoForStudent " + studentId + " retrieved in format " + format);
       return retrievers.get(format).fullInfoForStudent(studentId);
@@ -94,7 +99,7 @@ public class DataRetievalService implements DataRetriever {
   }
 
   @Override
-  public List<Course> allCourses() throws DataRetrievalException {
+  public List<Formatable> allCourses() throws DataRetrievalException {
     if (retrievers.containsKey(format)) {
       Log.v(TAG, "Returning allCourses retrieved in format " + format);
       return retrievers.get(format).allCourses();
@@ -105,7 +110,7 @@ public class DataRetievalService implements DataRetriever {
   }
 
   @Override
-  public List<Course> allCoursesInYear(int year) throws DataRetrievalException {
+  public List<Formatable> allCoursesInYear(int year) throws DataRetrievalException {
     if (retrievers.containsKey(format)) {
       Log.v(TAG, "Returning allCoursesInYear " + year + " retrieved in format " + format);
       return retrievers.get(format).allCoursesInYear(year);
@@ -116,7 +121,7 @@ public class DataRetievalService implements DataRetriever {
   }
 
   @Override
-  public List<Course> fullInfoForCourse(int courseId) throws DataRetrievalException {
+  public List<Formatable> fullInfoForCourse(int courseId) throws DataRetrievalException {
     if (retrievers.containsKey(format)) {
       Log.v(TAG, "Returning fullInfoForCourse with id " + courseId + " retrieved in format " +
               format);

@@ -9,9 +9,10 @@ public class Session {
     public int courseSpinnerPossision = 0;
     public int yearSpinnerPossision = 0;
     //public ListType selectActivity = ListType.STUDENT;
-    public Course clickedCourse = null;
-    public Student clickedStudent = null;
+    public Formatable clickedCourse = null;
+    public Formatable clickedStudent = null;
     public Formatable lastClick = null;
+
     public String format = "json";
     private static Session session;
 

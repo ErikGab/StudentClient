@@ -4,6 +4,7 @@ package se.yrgo.erik.studentclient.storage;
 import android.util.Log;
 
 import se.yrgo.erik.studentclient.formatables.Course;
+import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.formatables.Student;
 import se.yrgo.erik.studentclient.parseresponse.DataParserException;
 import se.yrgo.erik.studentclient.parseresponse.DataParserUtil;
@@ -18,13 +19,13 @@ public class JSONMockDataRetriever implements DataRetriever {
 
   static{
     Log.v(TAG, "static block running");
-    DataRetievalService.register("jsonMock", new JSONMockDataRetriever());
+    DataRetrievalService.register("jsonMock", new JSONMockDataRetriever());
   }
 
   private JSONMockDataRetriever() {}
 
   @Override
-  public List<Student> allStudents() {
+  public List<Formatable> allStudents() {
     Log.v(TAG, "returning allStudents...");
     try {
       String json = "{\"student\":[{\"id\":\"1\",\"name\":\"Katie\",\"surname\":\"Anderson\"}," +
@@ -50,12 +51,12 @@ public class JSONMockDataRetriever implements DataRetriever {
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: "+dpe.getMessage());
-      return new ArrayList<Student>();
+      return new ArrayList<Formatable>();
     }
   }
 
   @Override
-  public List<Student> allStudentsInCourse(int id) {
+  public List<Formatable> allStudentsInCourse(int id) {
     Log.v(TAG, "returning allStudentsInCourse... (id ignored)");
     try {
       String json = "{\"student\":[{\"id\":\"4\",\"name\":\"Ludovico\",\"surname\":\"Anderson\"}," +
@@ -71,12 +72,12 @@ public class JSONMockDataRetriever implements DataRetriever {
     } catch (DataParserException dpe){
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudentsInCourse...Failed: "+dpe.getMessage());
-      return new ArrayList<Student>();
+      return new ArrayList<Formatable>();
     }
   }
 
   @Override
-  public List<Student> fullInfoForStudent(int studentId) {
+  public List<Formatable> fullInfoForStudent(int studentId) {
     try {
       String json = "{\"student\":[{\"id\":\"8\",\"name\":\"Katie\",\"surname\":\"Dio\"," +
               "\"age\":\"44\",\"postAddress\":\"Bärslanda\",\"streetAddress\":\"Mesksmasket\"," +
@@ -87,13 +88,13 @@ public class JSONMockDataRetriever implements DataRetriever {
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning fullInfoForStudent...Failed: "+dpe.getMessage());
-      return new ArrayList<Student>();
+      return new ArrayList<Formatable>();
     }
   }
 
 
   @Override
-  public List<Course> allCourses() {
+  public List<Formatable> allCourses() {
     Log.v(TAG, "returning allCourses...");
     try {
       String json = "{\"course\":[{\"id\":\"1\",\"name\":\"C-101_2014\"}," +
@@ -111,12 +112,12 @@ public class JSONMockDataRetriever implements DataRetriever {
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allCourses...Failed: "+dpe.getMessage());
-      return new ArrayList<Course>();
+      return new ArrayList<Formatable>();
     }
   }
 
   @Override
-  public List<Course> allCoursesInYear(int year) {
+  public List<Formatable> allCoursesInYear(int year) {
     Log.v(TAG, "returning allCoursesInYear in year "+year+"...");
     try {
       HashMap<Integer, String> jsons = new HashMap<>();
@@ -139,12 +140,12 @@ public class JSONMockDataRetriever implements DataRetriever {
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allCoursesInYear...Failed: "+dpe.getMessage());
-      return new ArrayList<Course>();
+      return new ArrayList<Formatable>();
     }
   }
 
   @Override
-  public List<Course> fullInfoForCourse(int courseId) {
+  public List<Formatable> fullInfoForCourse(int courseId) {
     Log.v(TAG, "returning detailed Course info...");
     try {
       String json = "{\"course\":[{\"id\":\"8\",\"name\":\"JAVA-102_2016\"," +
@@ -156,7 +157,7 @@ public class JSONMockDataRetriever implements DataRetriever {
     } catch (DataParserException dpe){
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning detailed Course info...Failed: "+dpe.getMessage());
-      return new ArrayList<Course>();
+      return new ArrayList<Formatable>();
     }
   }
 }
