@@ -1,13 +1,13 @@
-package se.yrgo.erik.studentclient.storage;
+package se.yrgo.erik.studentclient.dataretrieval.retrievers;
 
 
 import android.util.Log;
 
-import se.yrgo.erik.studentclient.formatables.Course;
+import se.yrgo.erik.studentclient.dataretrieval.retrievers.parseresponse.JSONDataParser;
 import se.yrgo.erik.studentclient.formatables.Formatable;
-import se.yrgo.erik.studentclient.formatables.Student;
-import se.yrgo.erik.studentclient.parseresponse.DataParserException;
-import se.yrgo.erik.studentclient.parseresponse.DataParserUtil;
+import se.yrgo.erik.studentclient.dataretrieval.retrievers.parseresponse.DataParserException;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetriever;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class JSONMockDataRetriever implements DataRetriever {
               "{\"id\":\"87\",\"name\":\"Katie\",\"surname\":\"Redding\"}," +
               "{\"id\":\"94\",\"name\":\"Roky\",\"surname\":\"Cooper\"}," +
               "{\"id\":\"98\",\"name\":\"Tom\",\"surname\":\"MacFarlane\"}]}";
-      return DataParserUtil.Json2Students(json);
+      return JSONDataParser.Json2Students(json);
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: "+dpe.getMessage());
@@ -68,7 +68,7 @@ public class JSONMockDataRetriever implements DataRetriever {
               "{\"id\":\"77\",\"name\":\"Nina\",\"surname\":\"Cash\"}," +
               "{\"id\":\"83\",\"name\":\"Miles\",\"surname\":\"Cassidy\"}," +
               "{\"id\":\"94\",\"name\":\"Roky\",\"surname\":\"Cooper\"}]}";
-      return DataParserUtil.Json2Students(json);
+      return JSONDataParser.Json2Students(json);
     } catch (DataParserException dpe){
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudentsInCourse...Failed: "+dpe.getMessage());
@@ -84,7 +84,7 @@ public class JSONMockDataRetriever implements DataRetriever {
               "\"phonenumbers\":[{\"mobile\":\"0759-971563\",\"home\":\"080-359162\"}]," +
               "\"course\":[{\"id\":\"9\",\"name\":\"DB-101_2016\",\"status\":\"aborted\"," +
               "\"grade\":\"\"}]}]}";
-      return DataParserUtil.Json2Students(json);
+      return JSONDataParser.Json2Students(json);
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning fullInfoForStudent...Failed: "+dpe.getMessage());
@@ -108,7 +108,7 @@ public class JSONMockDataRetriever implements DataRetriever {
               "{\"id\":\"16\",\"name\":\"DB-101_2017\"},{\"id\":\"17\",\"name\":\"Bash-101_2017\"}," +
               "{\"id\":\"18\",\"name\":\"C-101_2017\"},{\"id\":\"19\",\"name\":\"C-102_2017\"}," +
               "{\"id\":\"20\",\"name\":\"C-103_2017\"}]}";
-      return DataParserUtil.Json2Course(json);
+      return JSONDataParser.Json2Course(json);
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allCourses...Failed: "+dpe.getMessage());
@@ -136,7 +136,7 @@ public class JSONMockDataRetriever implements DataRetriever {
               "{\"id\":\"17\",\"name\":\"Bash-101_2017\"},{\"id\":\"18\",\"name\":\"C-101_2017\"}," +
               "{\"id\":\"19\",\"name\":\"C-102_2017\"},{\"id\":\"20\",\"name\":\"C-103_2017\"}]}"
       );
-      return DataParserUtil.Json2Course(jsons.get(year));
+      return JSONDataParser.Json2Course(jsons.get(year));
     } catch (DataParserException dpe) {
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allCoursesInYear...Failed: "+dpe.getMessage());
@@ -153,7 +153,7 @@ public class JSONMockDataRetriever implements DataRetriever {
               "\"endDate\":\"2016-10-18\",\"points\":\"40\",\"student\":[{\"id\":\"25\"," +
               "\"name\":\"Harry\",\"surname\":\"Simone\",\"status\":\"complete\"," +
               "\"grade\":\"ig\"}]}]}";
-      return DataParserUtil.Json2Course(json);
+      return JSONDataParser.Json2Course(json);
     } catch (DataParserException dpe){
       //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning detailed Course info...Failed: "+dpe.getMessage());

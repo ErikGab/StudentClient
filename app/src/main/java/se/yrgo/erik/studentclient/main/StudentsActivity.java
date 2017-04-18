@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import se.yrgo.erik.studentclient.formatables.Formatable;
-import se.yrgo.erik.studentclient.storage.DataRetrievalService;
-import se.yrgo.erik.studentclient.storage.DataRetrievalException;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
 
 public class StudentsActivity extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class StudentsActivity extends AppCompatActivity {
               .map(c -> c.getName())
               .collect(Collectors.toList());
     }
-    returnee.add(0, "all");
+    returnee.add(0, getString(R.string.spinner_all_text));
     return returnee;
   }
 

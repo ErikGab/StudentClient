@@ -13,12 +13,8 @@ import android.widget.Spinner;
 
 import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.formatables.Formatable;
-import se.yrgo.erik.studentclient.formatables.FormatableMockData;
-import se.yrgo.erik.studentclient.formatables.Student;
-import se.yrgo.erik.studentclient.storage.DataRetrievalClient;
-import se.yrgo.erik.studentclient.storage.DataRetrievalService;
-import se.yrgo.erik.studentclient.storage.DataRetrievalException;
-import se.yrgo.erik.studentclient.storage.DataRetrievalService2;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -80,7 +76,7 @@ public class CoursesActivity extends AppCompatActivity {
             .map(f -> ((Course) f).getYear())
             .distinct()
             .collect(Collectors.toList());
-    years.add(0, "all");
+    years.add(0, getString(R.string.spinner_all_text));
     return years;
   }
 

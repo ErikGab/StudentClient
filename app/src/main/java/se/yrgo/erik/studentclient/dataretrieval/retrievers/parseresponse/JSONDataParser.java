@@ -1,9 +1,10 @@
-package se.yrgo.erik.studentclient.parseresponse;
+package se.yrgo.erik.studentclient.dataretrieval.retrievers.parseresponse;
 import android.util.Log;
 
 import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.formatables.FormatableItem;
+import se.yrgo.erik.studentclient.formatables.FormatableType;
 import se.yrgo.erik.studentclient.formatables.Student;
 
 import org.json.JSONArray;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class DataParserUtil {
+public class JSONDataParser {
 
-  private static final String TAG = "DataParserUtil";
+  private static final String TAG = "JSONDataParser";
 
   public static List<Formatable> Json2Students(String json)  throws DataParserException {
     Log.v(TAG, "Json2Students");
@@ -124,7 +125,7 @@ public class DataParserUtil {
             phoneNumbers.put("work", c.getString("work"));
           }
         }
-        returnee = new FormatableItem("phonenumbers", 0, phoneNumbers);
+        returnee = new FormatableItem(FormatableType.PHONENUMBERS, 0, phoneNumbers);
       } catch (JSONException jse) {
         throw new DataParserException(jse.getMessage());
       }

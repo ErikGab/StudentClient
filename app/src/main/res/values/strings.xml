@@ -10,4 +10,12 @@
     <string name="course_member_header">Students in course:</string>
     <string name="student_info_header">Student:</string>
     <string name="student_member_header">Courses:</string>
+    <string name="spinner_all_text">all</string>
+    <string name="LWR_course">Course Information:</string>
+    <string name="LWR_course_subitem">Courses:</string>
+    <string name="LWR_student">Student Information:</string>
+    <string name="LWR_student_subitem">Students:</string>
+    <string name="LWR_phone_numbers">Phone numbers:</string>
+    <string name="LWR_phone_numbers_subitem">Phone numbers:</string>
+    <string name="LWR_header_row2">Entries...</string>
 </resources>

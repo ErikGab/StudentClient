@@ -1,4 +1,4 @@
-package se.yrgo.erik.studentclient.storage;
+package se.yrgo.erik.studentclient.dataretrieval;
 
 
 import java.util.List;

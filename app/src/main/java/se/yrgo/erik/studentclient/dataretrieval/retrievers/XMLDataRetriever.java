@@ -1,8 +1,10 @@
-package se.yrgo.erik.studentclient.storage;
+package se.yrgo.erik.studentclient.dataretrieval.retrievers;
 
 import java.util.List;
 
 import se.yrgo.erik.studentclient.formatables.Formatable;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetriever;
 
 public class XMLDataRetriever implements DataRetriever {
   @Override

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.yrgo.erik.studentclient.formatables.FormatableType;
+
 public class ListViewRowAdapter extends BaseAdapter {
   private final ArrayList<ListViewRow> list;
 
@@ -51,12 +53,12 @@ public class ListViewRowAdapter extends BaseAdapter {
     // TODO replace findViewById by ViewHolder
 
 
-    if (item.getRowType() == ListViewRow.TYPE.HEADER) {
-      firstRow.setText(Capitalize(item.getRowData()));
+    if (item.getRowType() == FormatableType.HEADER) {
+      firstRow.setText(item.getRowName());
       firstRow.setTextSize(28);
       firstRow.setTextColor(Color.DKGRAY);
       firstRow.setPadding(0,40,0,0);
-      secondRow.setText("list of items:");
+      secondRow.setText(item.getRowData());
       secondRow.setTextSize(12);
     } else {
       firstRow.setText(item.getRowName());
@@ -69,7 +71,8 @@ public class ListViewRowAdapter extends BaseAdapter {
     return result;
   }
 
-  private String Capitalize(String string) {
-    return string.substring(0, 1).toUpperCase() + string.substring(1);
-  }
+  //THIS SHOULD NOT BE NECCESARY IF USING RESOURCES CORRECTLY
+  //private String Capitalize(String string) {
+  //  return string.substring(0, 1).toUpperCase() + string.substring(1);
+  //}
 }

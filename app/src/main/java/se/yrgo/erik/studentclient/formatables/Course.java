@@ -10,7 +10,7 @@ import java.util.Map;
 public class Course implements Formatable {
 
   private int id;
-  private final String ITEMTYPE = "course";
+  private final FormatableType ITEMTYPE = FormatableType.COURSE;
   private Map<String, String> properties;
   private List<Formatable> subItems = new ArrayList<>();
   private static final String TAG = "Course";
@@ -63,7 +63,7 @@ public class Course implements Formatable {
   }
 
   @Override
-  public String getItemType() {
+  public FormatableType getItemType() {
     return ITEMTYPE;
   }
 

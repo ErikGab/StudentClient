@@ -28,7 +28,7 @@ public class FormatableMockData {
               put("streetAddress", "Ramminnet 123");
             }},
             new ArrayList<Formatable>() {{
-              add(new FormatableItem("phonenumbers",
+              add(new FormatableItem(FormatableType.PHONENUMBERS,
                       1,
                       new LinkedHashMap<String,String>() {{
                         put("mobile", "0707-776655");

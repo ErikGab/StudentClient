@@ -1,4 +1,4 @@
-package se.yrgo.erik.studentclient.storage;
+package se.yrgo.erik.studentclient.dataretrieval.serverconnection;
 
 import android.util.Log;
 

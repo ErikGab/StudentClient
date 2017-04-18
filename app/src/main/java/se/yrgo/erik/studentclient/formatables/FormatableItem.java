@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class FormatableItem implements Formatable {
 
   private int id;
-  private String itemType;
+  private FormatableType itemType;
   private Map<String, String> properties;
   private List<Formatable> subItems = new ArrayList<>();
   private static final String TAG = "FormatableItem";
 
-  public FormatableItem(String itemType, int id, Map<String,String> properties,
+  public FormatableItem(FormatableType itemType, int id, Map<String,String> properties,
                         List<Formatable> subItems) {
     this.id = id;
     this.itemType = itemType;
@@ -22,7 +22,7 @@ public class FormatableItem implements Formatable {
     this.subItems = subItems;
     Log.v(TAG, "new created of type "+itemType+" with id "+id);
   }
-  public FormatableItem(String itemType, int id, Map<String,String> properties) {
+  public FormatableItem(FormatableType itemType, int id, Map<String,String> properties) {
     this.id = id;
     this.itemType = itemType;
     this.properties = properties;
@@ -34,7 +34,7 @@ public class FormatableItem implements Formatable {
   public int getId() {
     return id;
   }
-  public String getItemType() {
+  public FormatableType getItemType() {
     return itemType;
   }
   public Map<String,String> getProperties() {
@@ -50,6 +50,6 @@ public class FormatableItem implements Formatable {
     return toString();
   }
   public String getName() {
-    return itemType;
+    return itemType.toString();
   }
 }

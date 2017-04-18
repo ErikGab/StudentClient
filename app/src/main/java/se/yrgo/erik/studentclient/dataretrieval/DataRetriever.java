@@ -1,10 +1,6 @@
-package se.yrgo.erik.studentclient.storage;
+package se.yrgo.erik.studentclient.dataretrieval;
 
-
-import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.formatables.Formatable;
-import se.yrgo.erik.studentclient.formatables.Student;
-
 import java.util.List;
 
 public interface DataRetriever {

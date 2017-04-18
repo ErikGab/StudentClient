@@ -1,18 +1,21 @@
-package se.yrgo.erik.studentclient.storage;
+package se.yrgo.erik.studentclient.dataretrieval.retrievers;
 
 import android.util.Log;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import se.yrgo.erik.studentclient.formatables.Course;
+import se.yrgo.erik.studentclient.dataretrieval.retrievers.parseresponse.JSONDataParser;
 import se.yrgo.erik.studentclient.formatables.Formatable;
-import se.yrgo.erik.studentclient.formatables.Student;
-import se.yrgo.erik.studentclient.parseresponse.DataParserException;
-import se.yrgo.erik.studentclient.parseresponse.DataParserUtil;
+import se.yrgo.erik.studentclient.dataretrieval.retrievers.parseresponse.DataParserException;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService2;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetriever;
+import se.yrgo.erik.studentclient.dataretrieval.serverconnection.ServerConnection;
+import se.yrgo.erik.studentclient.dataretrieval.serverconnection.ServerConnectionException;
 
 public class JSONDataRetriever implements DataRetriever {
 
@@ -37,15 +40,13 @@ public class JSONDataRetriever implements DataRetriever {
     try {
       String response =
               ServerConnection.connectAndGET(DataRetrievalService.getServerURL(), getParams);
-      return DataParserUtil.Json2Students(response);
+      return JSONDataParser.Json2Students(response);
     } catch (DataParserException dpe) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + dpe.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + dpe.getMessage());
     } catch (ServerConnectionException sce) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + sce.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + sce.getMessage());
     }
   }
 
@@ -59,15 +60,13 @@ public class JSONDataRetriever implements DataRetriever {
     try {
       String response =
               ServerConnection.connectAndGET(DataRetrievalService.getServerURL(), getParams);
-      return DataParserUtil.Json2Students(response);
+      return JSONDataParser.Json2Students(response);
     } catch (DataParserException dpe) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + dpe.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + dpe.getMessage());
     } catch (ServerConnectionException sce) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + sce.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + sce.getMessage());
     }
   }
 
@@ -80,15 +79,13 @@ public class JSONDataRetriever implements DataRetriever {
     try {
       String response =
               ServerConnection.connectAndGET(DataRetrievalService.getServerURL(), getParams);
-      return DataParserUtil.Json2Students(response);
+      return JSONDataParser.Json2Students(response);
     } catch (DataParserException dpe) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + dpe.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + dpe.getMessage());
     } catch (ServerConnectionException sce) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + sce.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + sce.getMessage());
     }
   }
 
@@ -102,15 +99,13 @@ public class JSONDataRetriever implements DataRetriever {
     try {
       String response =
               ServerConnection.connectAndGET(DataRetrievalService.getServerURL(), getParams);
-      return DataParserUtil.Json2Course(response);
+      return JSONDataParser.Json2Course(response);
     } catch (DataParserException dpe) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + dpe.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + dpe.getMessage());
     } catch (ServerConnectionException sce) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + sce.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + sce.getMessage());
     }
   }
 
@@ -123,15 +118,13 @@ public class JSONDataRetriever implements DataRetriever {
     try {
       String response =
               ServerConnection.connectAndGET(DataRetrievalService.getServerURL(), getParams);
-      return DataParserUtil.Json2Course(response);
+      return JSONDataParser.Json2Course(response);
     } catch (DataParserException dpe) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + dpe.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + dpe.getMessage());
     } catch (ServerConnectionException sce) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + sce.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + sce.getMessage());
     }
   }
 
@@ -144,15 +137,13 @@ public class JSONDataRetriever implements DataRetriever {
     try {
       String response =
               ServerConnection.connectAndGET(DataRetrievalService.getServerURL(), getParams);
-      return DataParserUtil.Json2Course(response);
+      return JSONDataParser.Json2Course(response);
     } catch (DataParserException dpe) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + dpe.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + dpe.getMessage());
     } catch (ServerConnectionException sce) {
-      //TO DO: Hantera detta bättre!
       Log.v(TAG, "returning allStudents...Failed: " + sce.getMessage());
-      return new ArrayList<Formatable>();
+      throw new DataRetrievalException("returning allStudents...Failed: " + sce.getMessage());
     }
   }
 }

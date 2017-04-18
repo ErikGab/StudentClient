@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.formatables.Formatable;
-import se.yrgo.erik.studentclient.storage.DataRetrievalClient;
-import se.yrgo.erik.studentclient.storage.DataRetrievalService2;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalClient;
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService2;
 
 public class CoursesActivity2 extends AppCompatActivity implements DataRetrievalClient {
 
