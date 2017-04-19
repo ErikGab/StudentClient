@@ -1,39 +1,53 @@
 package se.yrgo.erik.studentclient.dataretrieval.retrievers;
 
+import android.util.Log;
+
+import java.net.HttpURLConnection;
 import java.util.List;
 
+import se.yrgo.erik.studentclient.dataretrieval.DataRetrieverFactory;
 import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetriever;
 
 public class CacheDataRetriever implements DataRetriever {
+
+  private static final String TAG = "CacheDataRetriever";
+
+  static{
+    Log.v(TAG, "static block running");
+    DataRetrieverFactory.register("cache", new CacheDataRetriever());
+  }
+
+  private CacheDataRetriever() {}
+
   @Override
-  public List<Formatable> allStudents() throws DataRetrievalException {
+  public String allStudents(String format) throws DataRetrievalException {
     return null;
   }
 
   @Override
-  public List<Formatable> allStudentsInCourse(int id) throws DataRetrievalException {
+  public String allStudentsInCourse(String format, int id) throws DataRetrievalException {
     return null;
   }
 
   @Override
-  public List<Formatable> fullInfoForStudent(int studentId) throws DataRetrievalException {
+  public String fullInfoForStudent(String format, int studentId) throws DataRetrievalException {
     return null;
   }
 
   @Override
-  public List<Formatable> allCourses() throws DataRetrievalException {
+  public String allCourses(String format) throws DataRetrievalException {
     return null;
   }
 
   @Override
-  public List<Formatable> allCoursesInYear(int year) throws DataRetrievalException {
+  public String allCoursesInYear(String format, int year) throws DataRetrievalException {
     return null;
   }
 
   @Override
-  public List<Formatable> fullInfoForCourse(int courseId) throws DataRetrievalException {
+  public String fullInfoForCourse(String format, int courseId) throws DataRetrievalException {
     return null;
   }
 }

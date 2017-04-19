@@ -1,6 +1,8 @@
-package se.yrgo.erik.studentclient.dataretrieval.retrievers.parseresponse;
+package se.yrgo.erik.studentclient.dataretrieval.parsers;
 import android.util.Log;
 
+import se.yrgo.erik.studentclient.dataretrieval.DataParser;
+import se.yrgo.erik.studentclient.dataretrieval.DataParserFactory;
 import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.formatables.FormatableItem;
@@ -15,12 +17,18 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class JSONDataParser {
+public class JSONDataParser implements DataParser {
 
   private static final String TAG = "JSONDataParser";
 
-  public static List<Formatable> Json2Students(String json)  throws DataParserException {
-    Log.v(TAG, "Json2Students");
+  static {
+    DataParserFactory.register("json", new JSONDataParser());
+  }
+
+  private JSONDataParser() {}
+
+  public List<Formatable> string2Students(String json)  throws DataParserException {
+    Log.v(TAG, "string2Students");
     List<Formatable> returnee = new ArrayList<Formatable>();
     int skippedItems = 0;
     try {
@@ -55,15 +63,17 @@ public class JSONDataParser {
       }
 
     } catch ( JSONException jse){
-      System.err.println(jse.getMessage());
+      Log.v(TAG, "string2Students catching JSONExeption " + jse.getMessage());
+    } catch ( NullPointerException npe) {
+      Log.v(TAG, "string2Students: null or empty json string, nothing to parse here... moving on.");
     }
-    Log.v(TAG, "Json2Students returning " + returnee.size() + " students, " + skippedItems +
+    Log.v(TAG, "string2Students returning " + returnee.size() + " students, " + skippedItems +
             " items skipped.");
     return returnee;
   }
 
-  public static List<Formatable> Json2Course(String json) throws DataParserException {
-    Log.v(TAG, "Json2Course");
+  public List<Formatable> string2Courses(String json) throws DataParserException {
+    Log.v(TAG, "string2Courses");
     List<Formatable> returnee = new ArrayList<Formatable>();
     int skippedItems = 0;
     try {
@@ -95,9 +105,11 @@ public class JSONDataParser {
       }
 
     } catch ( JSONException jse){
-      System.err.println(jse.getMessage());
-    }
-    Log.v(TAG, "Json2Course returning " + returnee.size() + " courses, " + skippedItems +
+    Log.v(TAG, "string2Courses catching JSONExeption " + jse.getMessage());
+  } catch ( NullPointerException npe) {
+    Log.v(TAG, "string2Courses: null or empty json string, nothing to parse here... moving on.");
+  }
+    Log.v(TAG, "string2Courses returning " + returnee.size() + " courses, " + skippedItems +
             " items skipped.");
     return returnee;
   }

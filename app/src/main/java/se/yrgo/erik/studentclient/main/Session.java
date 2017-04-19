@@ -1,5 +1,7 @@
 package se.yrgo.erik.studentclient.main;
 
+import android.content.Context;
+
 import se.yrgo.erik.studentclient.formatables.Formatable;
 
 public class Session {
@@ -10,6 +12,7 @@ public class Session {
   public Formatable clickedStudent = null;
   public Formatable lastClick = null;
   public boolean cachedData = false;
+  public Context context = null;
 
   public String format = "json";
   private static Session session;

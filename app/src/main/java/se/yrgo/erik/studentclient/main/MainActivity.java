@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     Log.v(TAG, "onCreate");
     setContentView(R.layout.activity_main);
+    Session.getInstance().context = getApplicationContext();
+
     Button studentButton = (Button) findViewById(R.id.students_btn);
     Button courseButton = (Button) findViewById(R.id.courses_btn);
 

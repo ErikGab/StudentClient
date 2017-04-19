@@ -50,9 +50,6 @@ public class ListViewRowAdapter extends BaseAdapter {
     TextView firstRow = ((TextView) result.findViewById(android.R.id.text1));
     TextView secondRow = ((TextView) result.findViewById(android.R.id.text2));
 
-    // TODO replace findViewById by ViewHolder
-
-
     if (item.getRowType() == FormatableType.HEADER) {
       firstRow.setText(item.getRowName());
       firstRow.setTextSize(28);
@@ -71,8 +68,4 @@ public class ListViewRowAdapter extends BaseAdapter {
     return result;
   }
 
-  //THIS SHOULD NOT BE NECCESARY IF USING RESOURCES CORRECTLY
-  //private String Capitalize(String string) {
-  //  return string.substring(0, 1).toUpperCase() + string.substring(1);
-  //}
 }

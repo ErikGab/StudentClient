@@ -1,15 +1,12 @@
 package se.yrgo.erik.studentclient.dataretrieval;
 
-import se.yrgo.erik.studentclient.formatables.Formatable;
-import java.util.List;
-
 public interface DataRetriever {
 
-  public List<Formatable> allStudents() throws DataRetrievalException;
-  public List<Formatable> allStudentsInCourse(int id) throws DataRetrievalException;
-  public List<Formatable> fullInfoForStudent(int studentId) throws DataRetrievalException;
-  public List<Formatable> allCourses() throws DataRetrievalException;
-  public List<Formatable> allCoursesInYear(int year) throws DataRetrievalException;
-  public List<Formatable> fullInfoForCourse(int courseId) throws DataRetrievalException;
+  String allStudents(String format) throws DataRetrievalException;
+  String allStudentsInCourse(String format, int id) throws DataRetrievalException;
+  String fullInfoForStudent(String format, int studentId) throws DataRetrievalException;
+  String allCourses(String format) throws DataRetrievalException;
+  String allCoursesInYear(String format, int year) throws DataRetrievalException;
+  String fullInfoForCourse(String format, int courseId) throws DataRetrievalException;
 }
 
