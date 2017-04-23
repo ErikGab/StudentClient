@@ -9,7 +9,6 @@ import se.yrgo.erik.studentclient.formatables.Formatable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,11 +57,8 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      Map<String, String> cachedResponse = cache.getResponse("allStudents");
-      if (cachedResponse.containsKey("response")) {
-        response = cachedResponse.get("response");
-        Session.getInstance().cachedData = true;
-      }
+      response = cache.getResponse("allStudents").get("response");
+      Session.getInstance().cachedData = true;
     }
     try {
       return DataParserFactory.getParser(format).string2Students(response);
@@ -81,8 +77,7 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      Map<String, String> cachedResponse = cache.getResponse("allStudentsInCourse" + id);
-      response = cachedResponse.get("response");
+      response = cache.getResponse("allStudentsInCourse" + id).get("response");
       Session.getInstance().cachedData = true;
     }
     try {
@@ -102,8 +97,7 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      Map<String, String> cachedResponse = cache.getResponse("fullInfoForStudent" + id );
-      response = cachedResponse.get("response");
+      response = cache.getResponse("fullInfoForStudent" + id ).get("response");
       Session.getInstance().cachedData = true;
     }
     try {
@@ -123,8 +117,7 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      Map<String, String> cachedResponse = cache.getResponse("allCourses");
-      response = cachedResponse.get("response");
+      response = cache.getResponse("allCourses").get("response");
       Session.getInstance().cachedData = true;
     }
     try {
@@ -144,8 +137,7 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      Map<String, String> cachedResponse = cache.getResponse("allCoursesInYear" + year);
-      response = cachedResponse.get("response");
+      response = cache.getResponse("allCoursesInYear" + year).get("response");
       Session.getInstance().cachedData = true;
     }
     try {
@@ -165,8 +157,7 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      Map<String, String> cachedResponse = cache.getResponse("fullInfoForCourse" + id);
-      response = cachedResponse.get("response");
+      response = cache.getResponse("fullInfoForCourse" + id).get("response");
       Session.getInstance().cachedData = true;
     }
     try {
@@ -177,13 +168,13 @@ public class DataRetrievalService {
     }
   }
 
-  //NOT IN USE YET... SHOULD BE USED BY METHODS ABOVE TO BE MORE DRY
+  //NOT IN USE YET... SHOULD BE USED BY METHODS ABOVE TO DRY CODE
   private List<Formatable> retrieve(String type, int id) throws DataRetrievalException {
     Log.v(TAG, "Retrieving data...");
     String response = "";
     DataRetriever dR = DataRetrieverFactory.getRetriever();
     try {
-      response = DataRetrieverFactory.getRetriever().fullInfoForCourse(format, id);
+      response = dR.fullInfoForCourse(format, id);
       cache.addResponse(response, "fullInfoForCourse" + id, format, "course");
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {

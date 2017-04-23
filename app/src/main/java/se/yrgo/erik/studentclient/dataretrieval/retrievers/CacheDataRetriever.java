@@ -2,11 +2,7 @@ package se.yrgo.erik.studentclient.dataretrieval.retrievers;
 
 import android.util.Log;
 
-import java.net.HttpURLConnection;
-import java.util.List;
-
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrieverFactory;
-import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetriever;
 

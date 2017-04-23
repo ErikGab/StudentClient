@@ -6,8 +6,6 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import se.yrgo.erik.studentclient.dataretrieval.retrievers.DefaultDataRetriever;
-
 public class DataRetrieverFactory {
 
   private static String classNames[] = {

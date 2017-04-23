@@ -14,7 +14,6 @@ import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
 import se.yrgo.erik.studentclient.formatables.FormatableType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,7 +42,7 @@ public class InfoActivity extends AppCompatActivity {
   private void init() {
     currentItem = Session.getInstance().lastClick;
     subitemTypes = findSubItemTypes();
-    listView.setAdapter(new ListViewRowAdapter(transformFormatableForListView()));
+    listView.setAdapter(new ListViewRowAdapter(formatable2ListViewRows()));
   }
 
   private List<FormatableType> findSubItemTypes() {
@@ -54,8 +53,8 @@ public class InfoActivity extends AppCompatActivity {
             .collect(Collectors.toList());
   }
 
-  private List<ListViewRow> transformFormatableForListView() {
-    Log.v(TAG, "transformFormatableForListView");
+  private List<ListViewRow> formatable2ListViewRows() {
+    Log.v(TAG, "formatable2ListViewRows");
     List<ListViewRow> returningList = new ArrayList<>();
     returningList.add(new ListViewRow(FormatableType.HEADER,
             itemType2Resource(currentItem.getItemType()), getString(R.string.LWR_header_row2))
