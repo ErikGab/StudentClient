@@ -10,8 +10,6 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import se.yrgo.erik.studentclient.dataretrieval.parsers.DataParserException;
-
 public class CacheDB {
 
   private SQLiteDatabase database;
@@ -41,7 +39,7 @@ public class CacheDB {
       database.delete(CacheDBHelper.TABLE_RESPONSECACHE, where, null);
       database.insert(CacheDBHelper.TABLE_RESPONSECACHE, null, values);
     } catch (android.database.sqlite.SQLiteException sqle) {
-      Log.v(TAG, "DEAR SIR, YOUR SQL IS BAD. GÖR OM GÖR RÄTT!");
+      Log.v(TAG, "DEAR SIR, YOUR SQL IS BAD.");
     }
   }
 
@@ -62,6 +60,27 @@ public class CacheDB {
       responseMap.put("response", cursor.getString(3));
     }
     return responseMap;
+  }
+
+  public void clearCache(){
+    try {
+      database.delete(CacheDBHelper.TABLE_RESPONSECACHE, null, null);
+    } catch (android.database.sqlite.SQLiteException sqle) {
+      Log.v(TAG, "DEAR SIR, YOUR SQL IS BAD.");
+    }
+  }
+
+  public int getSize(){
+    try {
+      Cursor cursor = database.rawQuery("SELECT " + CacheDBHelper.COLUMN_ID
+                                      + " FROM " + CacheDBHelper.TABLE_RESPONSECACHE, null);
+      int size = cursor.getCount();
+      cursor.close();
+      return size;
+    } catch (android.database.sqlite.SQLiteException sqle) {
+      Log.v(TAG, "DEAR SIR, YOUR SQL IS BAD.");
+      return 0;
+    }
   }
 
 }

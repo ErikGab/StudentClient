@@ -1,11 +1,14 @@
 package se.yrgo.erik.studentclient.main;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import se.yrgo.erik.studentclient.dataretrieval.CacheDB.PreCacheRunner;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
     Log.v(TAG, "onCreate");
     setContentView(R.layout.activity_main);
     Session.getInstance().context = getApplicationContext();
-
     Button studentButton = (Button) findViewById(R.id.students_btn);
     Button courseButton = (Button) findViewById(R.id.courses_btn);
+    Button settingsButton = (Button) findViewById(R.id.settings_btn);
 
     studentButton.setOnClickListener( new View.OnClickListener() {
       @Override
@@ -36,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         switch2CoursesActivity();
       }
     });
+
+    settingsButton.setOnClickListener( new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        //Session.getInstance().selectActivity= Session.ListType.COURSE;
+        switch2SettingsActivity();
+      }
+    });
   }
 
   private void switch2StudentsActivity() {
@@ -47,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
   private void switch2CoursesActivity() {
     Log.v(TAG, "switch2CoursesActivity");
     Intent intent = new Intent(this, CoursesActivity.class);
+    startActivity(intent);
+  }
+
+  private void switch2SettingsActivity() {
+    Log.v(TAG, "switch2SettingsActivity");
+    Intent intent = new Intent(this, SettingsActivity.class);
     startActivity(intent);
   }
 

@@ -18,4 +18,7 @@
     <string name="LWR_phone_numbers">Phone numbers:</string>
     <string name="LWR_phone_numbers_subitem">Phone numbers:</string>
     <string name="LWR_header_row2">Entries...</string>
+    <string name="precache_btn_text">Run precache</string>
+    <string name="clearcache_btn_text">Clear cache</string>
+    <string name="cache_info_text">Cache size:</string>
 </resources>

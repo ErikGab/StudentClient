@@ -200,4 +200,12 @@ public class DataRetrievalService {
     }
   }
 
+  public void clearCache() {
+    cache.clearCache();
+  }
+
+  public int cacheSize() {
+    return cache.getSize();
+  }
+
 }
