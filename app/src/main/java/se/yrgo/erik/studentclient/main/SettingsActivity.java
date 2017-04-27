@@ -1,5 +1,6 @@
 package se.yrgo.erik.studentclient.main;
 
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     drs = DataRetrievalService.getInstance();
 
     runPreCacheBtn = (Button) findViewById(R.id.precache_btn);

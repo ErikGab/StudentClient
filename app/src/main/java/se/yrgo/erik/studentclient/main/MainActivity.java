@@ -1,6 +1,7 @@
 package se.yrgo.erik.studentclient.main;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     Log.v(TAG, "onCreate");
     setContentView(R.layout.activity_main);
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     Session.getInstance().context = getApplicationContext();
     Button studentButton = (Button) findViewById(R.id.students_btn);
     Button courseButton = (Button) findViewById(R.id.courses_btn);

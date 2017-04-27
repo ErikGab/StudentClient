@@ -1,6 +1,7 @@
 package se.yrgo.erik.studentclient.main;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class CoursesActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_courses);
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     Log.v(TAG, "onCreate");
     drs = DataRetrievalService.getInstance();
     listView = (ListView) findViewById(R.id.course_listview);
