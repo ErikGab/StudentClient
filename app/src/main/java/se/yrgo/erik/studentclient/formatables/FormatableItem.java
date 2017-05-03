@@ -49,6 +49,9 @@ public class FormatableItem implements Formatable {
   public String toListViewString() {
     return toString();
   }
+  public String toListViewStringHeader() {
+    return itemType.toString();
+  }
   public String getName() {
     return itemType.toString();
   }

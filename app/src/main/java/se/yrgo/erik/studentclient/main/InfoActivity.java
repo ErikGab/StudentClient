@@ -1,6 +1,7 @@
 package se.yrgo.erik.studentclient.main;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
 import se.yrgo.erik.studentclient.formatables.FormatableType;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -62,7 +65,7 @@ public class InfoActivity extends AppCompatActivity {
             itemType2Resource(currentItem.getItemType()), getString(R.string.LWR_header_row2))
     );
     for (String key : currentItem.getProperties().keySet()) {
-      returningList.add(new ListViewRow(FormatableType.STUDENT, key,
+      returningList.add(new ListViewRow(FormatableType.OTHER, translate(key),
               currentItem.getProperties().get(key))
       );
     }
@@ -77,7 +80,7 @@ public class InfoActivity extends AppCompatActivity {
                 .get(0)
                 .getProperties();
         for (String phonetype : phoneNumbers.keySet()) {
-          returningList.add(new ListViewRow(FormatableType.OTHER, phonetype,
+          returningList.add(new ListViewRow(FormatableType.PHONENUMBERS, translate(phonetype),
                   phoneNumbers.get(phonetype))
           );
         }
@@ -89,10 +92,11 @@ public class InfoActivity extends AppCompatActivity {
                 .filter(f -> f.getItemType().equals(type))
                 .collect(Collectors.toList());
         for (Formatable item : items) {
-          returningList.add(new ListViewRow(type,
-                  subitemType2Resource(type).substring(0, subitemType2Resource(type).length()-2)
-                  + ":", item.toListViewString(), item.getId())
-          );
+//          returningList.add(new ListViewRow(type,
+//                  subitemType2Resource(type).substring(0, subitemType2Resource(type).length()-2)
+//                  + ":", item.toListViewString(), item.getId())
+          returningList.add(new ListViewRow(type, translate(item.toListViewStringHeader()),
+                  item.toListViewString(), item.getId()));
         }
       }
     }
@@ -167,6 +171,57 @@ public class InfoActivity extends AppCompatActivity {
       default:
         return "";
     }
+  }
+
+  private String translate(String str) {
+    Map<String, String> translations = buildStringMap();
+    String key = str.toLowerCase().trim();
+    if (translations.containsKey(key)) {
+      return translations.get(key);
+    } else {
+      return str; //USE GOOGLE TRANSLATE HERE?
+    }
+  }
+
+  //Automatic Dynamic but does not work
+//  private Map<String, String> buildStringMap(){
+//    Map<String, String> translationMap = new HashMap<>();
+//    List<Field> fields = Arrays.asList(R.string.class.getFields());
+//    fields.stream()
+//            .filter(f -> f.getName().substring(0,8).equals("dbColumn"))
+//            .forEach(f -> translationMap.put(f.getName(), f.get()));
+//    return translationMap;
+//  }
+
+  //This is BAD.
+  private Map<String,String> buildStringMap(){
+    Map<String,String> translations = new HashMap<>();
+    try {
+      translations.put("id", getString(R.string.dbColumn_id));
+      translations.put("name", getString(R.string.dbColumn_name));
+      translations.put("surname", getString(R.string.dbColumn_surname));
+      translations.put("age", getString(R.string.dbColumn_age));
+      translations.put("complete", getString(R.string.dbColumn_complete));
+      translations.put("description", getString(R.string.dbColumn_description));
+      translations.put("aborted", getString(R.string.dbColumn_aborted));
+      translations.put("enddate", getString(R.string.dbColumn_endDate));
+      translations.put("fax", getString(R.string.dbColumn_fax));
+      translations.put("grade", getString(R.string.dbColumn_grade));
+      translations.put("home", getString(R.string.dbColumn_home));
+      translations.put("mobile", getString(R.string.dbColumn_mobile));
+      translations.put("ongoing", getString(R.string.dbColumn_ongoing));
+      translations.put("phonenumbers", getString(R.string.dbColumn_phonenumbers));
+      translations.put("points", getString(R.string.dbColumn_points));
+      translations.put("postaddress", getString(R.string.dbColumn_postAddress));
+      translations.put("startdate", getString(R.string.dbColumn_startDate));
+      translations.put("status", getString(R.string.dbColumn_status));
+      translations.put("streetaddress", getString(R.string.dbColumn_streetAddress));
+      translations.put("work", getString(R.string.dbColumn_work));
+    } catch (Resources.NotFoundException nfe) {
+      Log.v("TRANSLATORMAP: ", "RESOURCES NOT FOUND");
+      return new HashMap<String,String>();
+    }
+    return translations;
   }
 
 }

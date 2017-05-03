@@ -18,7 +18,15 @@ public class ServerConnection {
 
   private ServerConnection() {}
 
-  public static String connectAndGET(URL serverURL, Map<String,String> getParams) throws ServerConnectionException {
+  /** sends GET params to serverURL and returns response as String
+   *
+   * @param serverURL
+   * @param getParams
+   * @return
+   * @throws ServerConnectionException
+   */
+  public static String connectAndGET(URL serverURL, Map<String,String> getParams)
+          throws ServerConnectionException {
     try {
       String urlPath = serverURL.toString() + getParamsToString(getParams);
       serverConnection = (HttpURLConnection) new URL(urlPath).openConnection();

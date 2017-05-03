@@ -21,4 +21,25 @@
     <string name="precache_btn_text">Run precache</string>
     <string name="clearcache_btn_text">Clear cache</string>
     <string name="cache_info_text">Cache size:</string>
+    <string name="dbColumn_name">name</string>
+    <string name="dbColumn_surname">surname</string>
+    <string name="dbColumn_id">id</string>
+    <string name="dbColumn_postAddress">post address</string>
+    <string name="dbColumn_streetAddress">street address</string>
+    <string name="dbColumn_phonenumbers">phonenumbers</string>
+    <string name="dbColumn_mobile">mobile</string>
+    <string name="dbColumn_home">home</string>
+    <string name="dbColumn_age">age</string>
+    <string name="dbColumn_fax">fax</string>
+    <string name="dbColumn_work">work</string>
+    <string name="dbColumn_status">status</string>
+    <string name="dbColumn_complete">complete</string>
+    <string name="dbColumn_ongoing">ongoing</string>
+    <string name="dbColumn_aborted">aborted</string>
+    <string name="dbColumn_grade">grade</string>
+    <string name="dbColumn_description">description</string>
+    <string name="dbColumn_startDate">start date</string>
+    <string name="dbColumn_endDate">end date</string>
+    <string name="dbColumn_points">points</string>
+    <string name="cache_size_deco">GET responses in cache.</string>
 </resources>

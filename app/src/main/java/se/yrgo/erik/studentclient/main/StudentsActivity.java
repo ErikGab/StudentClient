@@ -82,9 +82,7 @@ public class StudentsActivity extends AppCompatActivity {
     @Override
     protected void onPostExecute(Void result) {
       super.onPostExecute(result);
-      listView.setAdapter(new ArrayAdapter<Formatable>(StudentsActivity.this,
-              android.R.layout.simple_list_item_1, studentsList)
-      );
+      listView.setAdapter(new FormatableAdapter(studentsList));
       courseSpinner.setAdapter(new ArrayAdapter<String>(StudentsActivity.this,
               R.layout.spinner_item,R.id.textview, createListForSpinner(coursesList))
       );
@@ -119,9 +117,7 @@ public class StudentsActivity extends AppCompatActivity {
     @Override
     protected void onPostExecute (Void result){
       super.onPostExecute(result);
-      listView.setAdapter(new ArrayAdapter<Formatable>(StudentsActivity.this,
-              android.R.layout.simple_list_item_1, studentsList)
-      );
+      listView.setAdapter(new FormatableAdapter(studentsList));
     }
   }
 
@@ -187,8 +183,7 @@ public class StudentsActivity extends AppCompatActivity {
         // Filter above is shitty, only searches begining of words, but probably has some advantages
         // since it is default filter for adapters in android. Filter below filters like a boss.
 
-        listView.setAdapter(new ArrayAdapter<Formatable>(StudentsActivity.this,
-                android.R.layout.simple_list_item_1, studentsList.stream()
+        listView.setAdapter(new FormatableAdapter(studentsList.stream()
                 .filter( s -> s.toString().toLowerCase().contains(cs.toString().toLowerCase()))
                 .collect(Collectors.toList()))
         );

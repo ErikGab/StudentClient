@@ -92,14 +92,27 @@ public class Course implements Formatable {
     return getName();
   }
 
+  @Override
   public String toListViewString(){
     Log.v(TAG, "with id "+id+" returning ListViewString");
-    return new StringBuilder()
-            .append(getName())
-            .append(" ")
-            .append(String.valueOf(properties.get("status")))
-            .append(" ")
-            .append(String.valueOf(properties.get("grade")))
-            .toString();
+    StringBuilder sb = new StringBuilder()
+            .append(getName());
+    if (properties.containsKey("grade") && !properties.get("grade").equals("null")) {
+      sb.append(" ")
+              .append(String.valueOf(properties.get("grade")));
+    }
+    return sb.toString();
   }
+
+  @Override
+  public String toListViewStringHeader() {
+    Log.v(TAG, "with id "+id+ " returning ListViewStringHeader");
+    if (properties.containsKey("status") && !properties.get("status").equals("null")) {
+      return properties.get("status");
+    } else {
+      return "...";
+    }
+
+  }
+
 }

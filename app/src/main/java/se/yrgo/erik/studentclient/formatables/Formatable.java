@@ -9,5 +9,6 @@ public interface Formatable {
     public Map<String,String> getProperties();
     public List<Formatable> getSubItems();
     public String toListViewString();
+    public String toListViewStringHeader();
     public String getName();
 }

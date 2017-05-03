@@ -105,17 +105,29 @@ public class Student implements Formatable{
     return getName() + " " + getSurname();
   }
 
+  @Override
   public String toListViewString() {
     Log.v(TAG, "with id "+id+ " returning ListViewString");
-    return new StringBuilder()
+    StringBuilder sb = new StringBuilder()
             .append(getName())
             .append(" ")
-            .append(getSurname())
-            .append(" ")
-            .append(String.valueOf(properties.get("status")))
-            .append(" ")
-            .append(String.valueOf(properties.get("grade")))
-            .toString();
+            .append(getSurname());
+    if (properties.containsKey("grade") && !properties.get("grade").equals("null")) {
+      sb.append(" ")
+             .append(String.valueOf(properties.get("grade")));
+    }
+    return sb.toString();
+  }
+
+  @Override
+  public String toListViewStringHeader() {
+    Log.v(TAG, "with id "+id+ " returning ListViewStringHeader");
+    if (properties.containsKey("status") && !properties.get("status").equals("null")) {
+      return properties.get("status");
+    } else {
+      return "...";
+    }
+
   }
 
 }

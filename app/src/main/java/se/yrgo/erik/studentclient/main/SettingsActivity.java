@@ -116,7 +116,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onPostExecute(Integer result) {
-      cacheSize.setText(size + " GET responses in cache.");
+      cacheSize.setText(size + " " + getString(R.string.cache_size_deco));
     }
 
   }

@@ -66,9 +66,7 @@ public class CoursesActivity extends AppCompatActivity {
               yearList)
       );
       yearSpinner.setSelection(Session.getInstance().yearSpinnerPossision);
-      listView.setAdapter(new ArrayAdapter<Formatable>(CoursesActivity.this, android.R.layout.simple_list_item_1,
-              coursesList)
-      );
+      listView.setAdapter(new FormatableAdapter(coursesList));
     }
   }
 
@@ -125,12 +123,9 @@ public class CoursesActivity extends AppCompatActivity {
       public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position,
                                  long id) {
         if (position != 0)  {
-          listView.setAdapter(new ArrayAdapter<Formatable>(   CoursesActivity.this,
-                  android.R.layout.simple_list_item_1,
-                  coursesList.stream()
-                          .filter( c -> ((Course) c).getYear().equals(yearList.get(position)))
-                          .collect(Collectors.toList()))
-          );
+          listView.setAdapter(new FormatableAdapter(coursesList.stream()
+                  .filter( c -> ((Course) c).getYear().equals(yearList.get(position)))
+                  .collect(Collectors.toList())));
           Session.getInstance().yearSpinnerPossision=position;
         }
       }
