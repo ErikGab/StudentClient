@@ -43,4 +43,6 @@
     <string name="dbColumn_work">arbete</string>
     <string name="dbColumn_age">ålder</string>
     <string name="cache_size_deco">GET-svar i cachen.</string>
+    <string name="switch_format_btn_text">Nuvarande:</string>
+    <string name="switch_format_header_text">Byt kommunikationsformat:</string>
 </resources>

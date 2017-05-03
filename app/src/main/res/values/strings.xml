@@ -42,4 +42,6 @@
     <string name="dbColumn_endDate">end date</string>
     <string name="dbColumn_points">points</string>
     <string name="cache_size_deco">GET responses in cache.</string>
+    <string name="switch_format_header_text">Switch communication format:</string>
+    <string name="switch_format_btn_text">Current:</string>
 </resources>

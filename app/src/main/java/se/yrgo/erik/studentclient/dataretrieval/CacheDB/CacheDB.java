@@ -66,7 +66,7 @@ public class CacheDB {
     try {
       database.delete(CacheDBHelper.TABLE_RESPONSECACHE, null, null);
     } catch (android.database.sqlite.SQLiteException sqle) {
-      Log.v(TAG, "DEAR SIR, YOUR SQL IS BAD.");
+      Log.v(TAG, "Failed to Clear cache.");
     }
   }
 
@@ -78,7 +78,7 @@ public class CacheDB {
       cursor.close();
       return size;
     } catch (android.database.sqlite.SQLiteException sqle) {
-      Log.v(TAG, "DEAR SIR, YOUR SQL IS BAD.");
+      Log.v(TAG, "Failed to get cache size.");
       return 0;
     }
   }

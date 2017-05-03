@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import se.yrgo.erik.studentclient.dataretrieval.CacheDB.PreCacheRunner;
@@ -17,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
   Button clearCacheBtn;
   String orgBtnText;
   TextView cacheSize;
+  Button formatBtn;
   DataRetrievalService drs;
 
   @Override
@@ -30,6 +33,23 @@ public class SettingsActivity extends AppCompatActivity {
     clearCacheBtn = (Button) findViewById(R.id.clearcache_btn);
     cacheSize = (TextView) findViewById(R.id.cachesize_textview);
     orgBtnText = runPreCacheBtn.getText().toString();
+    formatBtn = (Button) findViewById(R.id.formatbutton);
+    updateFormatButton();
+
+    formatBtn.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        String currentFormat = drs.getFormat();
+        if (currentFormat.equals("json")) {
+          drs.setFormat("xml");
+          updateFormatButton();
+        } else if (currentFormat.equals("xml")) {
+          drs.setFormat("json");
+          updateFormatButton();
+        }
+      }
+    });
     new SizeOfCacheCheck().execute();
 
     runPreCacheBtn.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +69,10 @@ public class SettingsActivity extends AppCompatActivity {
       }
     });
 
+  }
+
+  private void updateFormatButton() {
+    formatBtn.setText(getString(R.string.switch_format_btn_text) + drs.getFormat());
   }
 
   protected class Update extends AsyncTask<Integer, Integer, Integer> {

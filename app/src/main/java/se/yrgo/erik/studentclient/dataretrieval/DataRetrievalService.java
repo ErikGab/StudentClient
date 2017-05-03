@@ -9,6 +9,7 @@ import se.yrgo.erik.studentclient.formatables.Formatable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,10 @@ public class DataRetrievalService {
 
   public static void setFormat(String requestedFormat) {
     format = requestedFormat;
-    Session.getInstance().format = requestedFormat;
+  }
+
+  public static String getFormat() {
+    return format;
   }
 
   public static URL getServerURL() {
@@ -70,6 +74,7 @@ public class DataRetrievalService {
 
   public List<Formatable> allStudentsInCourse(int id) throws DataRetrievalException {
     Log.v(TAG, "Returning allStudentsInCourse " + id + " retrieved in format " + format);
+    String parseFormat = format;
     String response = "";
     try {
       response = DataRetrieverFactory.getRetriever().allStudentsInCourse(format, id);
@@ -77,11 +82,13 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      response = cache.getResponse("allStudentsInCourse" + id).get("response");
+      Map<String,String> cachedata = cache.getResponse("allStudentsInCourse" + id);
+      response = cachedata.get("response");
+      parseFormat = cachedata.get("contentType");
       Session.getInstance().cachedData = true;
     }
     try {
-      return DataParserFactory.getParser(format).string2Students(response);
+      return DataParserFactory.getParser(parseFormat).string2Students(response);
     } catch (DataParserException dpe) {
       Log.v(TAG, "FAILED TO PARSE DATA");
       throw new DataRetrievalException(dpe.getMessage());
@@ -90,6 +97,7 @@ public class DataRetrievalService {
 
   public List<Formatable> fullInfoForStudent(int id) throws DataRetrievalException {
     Log.v(TAG, "Returning fullInfoForStudent " + id + " retrieved in format " + format);
+    String parseFormat = format;
     String response = "";
     try {
       response = DataRetrieverFactory.getRetriever().fullInfoForStudent(format, id);
@@ -97,11 +105,13 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      response = cache.getResponse("fullInfoForStudent" + id ).get("response");
+      Map<String,String> cachedata = cache.getResponse("fullInfoForStudent" + id );
+      response = cachedata.get("response");
+      parseFormat = cachedata.get("contentType");
       Session.getInstance().cachedData = true;
     }
     try {
-      return DataParserFactory.getParser(format).string2Students(response);
+      return DataParserFactory.getParser(parseFormat).string2Students(response);
     } catch (DataParserException dpe) {
       Log.v(TAG, "FAILED TO PARSE DATA");
       throw new DataRetrievalException(dpe.getMessage());
@@ -110,6 +120,7 @@ public class DataRetrievalService {
 
   public List<Formatable> allCourses() throws DataRetrievalException {
     Log.v(TAG, "Returning allCourses retrieved in format " + format);
+    String parseFormat = format;
     String response = "";
     try {
       response = DataRetrieverFactory.getRetriever().allCourses(format);
@@ -117,11 +128,13 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      response = cache.getResponse("allCourses").get("response");
+      Map<String,String> cachedata = cache.getResponse("allCourses");
+      response = cachedata.get("response");
+      parseFormat = cachedata.get("contentType");
       Session.getInstance().cachedData = true;
     }
     try {
-      return DataParserFactory.getParser(format).string2Courses(response);
+      return DataParserFactory.getParser(parseFormat).string2Courses(response);
     } catch (DataParserException dpe) {
       Log.v(TAG, "FAILED TO PARSE DATA");
       throw new DataRetrievalException(dpe.getMessage());
@@ -130,6 +143,7 @@ public class DataRetrievalService {
 
   public List<Formatable> allCoursesInYear(int year) throws DataRetrievalException {
     Log.v(TAG, "Returning allCoursesInYear " + year + " retrieved in format " + format);
+    String parseFormat = format;
     String response = "";
     try {
       response = DataRetrieverFactory.getRetriever().allCoursesInYear(format, year);
@@ -137,11 +151,13 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      response = cache.getResponse("allCoursesInYear" + year).get("response");
+      Map<String,String> cachedata = cache.getResponse("allCoursesInYear" + year);
+      response = cachedata.get("response");
+      parseFormat = cachedata.get("contentType");
       Session.getInstance().cachedData = true;
     }
     try {
-      return DataParserFactory.getParser(format).string2Courses(response);
+      return DataParserFactory.getParser(parseFormat).string2Courses(response);
     } catch (DataParserException dpe) {
       Log.v(TAG, "FAILED TO PARSE DATA");
       throw new DataRetrievalException(dpe.getMessage());
@@ -150,6 +166,7 @@ public class DataRetrievalService {
 
   public List<Formatable> fullInfoForCourse(int id) throws DataRetrievalException {
     Log.v(TAG, "Returning fullInfoForCourse with id " + id + " retrieved in format " + format);
+    String parseFormat = format;
     String response = "";
     try {
       response = DataRetrieverFactory.getRetriever().fullInfoForCourse(format, id);
@@ -157,11 +174,13 @@ public class DataRetrievalService {
       Session.getInstance().cachedData = false;
     } catch (DataRetrievalException dre) {
       Log.v(TAG, "FAILED TO GET NEW DATA FROM SERVER. USING OLD DATA FROM CACHE");
-      response = cache.getResponse("fullInfoForCourse" + id).get("response");
+      Map<String,String> cachedata = cache.getResponse("fullInfoForCourse" + id);
+      response = cachedata.get("response");
+      parseFormat = cachedata.get("contentType");
       Session.getInstance().cachedData = true;
     }
     try {
-      return DataParserFactory.getParser(format).string2Courses(response);
+      return DataParserFactory.getParser(parseFormat).string2Courses(response);
     } catch (DataParserException dpe) {
       Log.v(TAG, "FAILED TO PARSE DATA");
       throw new DataRetrievalException(dpe.getMessage());

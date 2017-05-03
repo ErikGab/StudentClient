@@ -122,12 +122,14 @@ public class CoursesActivity extends AppCompatActivity {
       @Override
       public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position,
                                  long id) {
-        if (position != 0)  {
+        if (position == 0) {
+          listView.setAdapter(new FormatableAdapter(coursesList));
+        } else {
           listView.setAdapter(new FormatableAdapter(coursesList.stream()
                   .filter( c -> ((Course) c).getYear().equals(yearList.get(position)))
                   .collect(Collectors.toList())));
-          Session.getInstance().yearSpinnerPossision=position;
         }
+        Session.getInstance().yearSpinnerPossision=position;
       }
 
       @Override

@@ -14,7 +14,6 @@ public class Session {
   public boolean cachedData = false;
   public Context context = null;
 
-  public String format = "json";
   private static Session session;
 
   static {
