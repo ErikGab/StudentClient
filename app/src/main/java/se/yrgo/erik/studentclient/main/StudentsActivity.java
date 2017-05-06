@@ -48,7 +48,7 @@ public class StudentsActivity extends AppCompatActivity {
     new listAndSpinnerUpdate().execute();
     setListeners();
   }
-  //NOTE TO SELF: BEHÖVER DENNA TA ETT ARGUMENT?
+
   private List<String> createListForSpinner(List<Formatable> list) {
     Log.v(TAG, "createListForSpinner");
     List<String> returnee;

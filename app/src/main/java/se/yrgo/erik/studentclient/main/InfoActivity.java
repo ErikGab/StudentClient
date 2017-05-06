@@ -92,9 +92,6 @@ public class InfoActivity extends AppCompatActivity {
                 .filter(f -> f.getItemType().equals(type))
                 .collect(Collectors.toList());
         for (Formatable item : items) {
-//          returningList.add(new ListViewRow(type,
-//                  subitemType2Resource(type).substring(0, subitemType2Resource(type).length()-2)
-//                  + ":", item.toListViewString(), item.getId())
           returningList.add(new ListViewRow(type, translate(item.toListViewStringHeader()),
                   item.toListViewString(), item.getId()));
         }
@@ -147,7 +144,7 @@ public class InfoActivity extends AppCompatActivity {
 
   }
 
-  private String itemType2Resource(FormatableType type){
+  private String itemType2Resource(FormatableType type) {
     switch (type) {
       case COURSE:
         return getString(R.string.LWR_course);
@@ -160,7 +157,7 @@ public class InfoActivity extends AppCompatActivity {
     }
   }
 
-  private String subitemType2Resource(FormatableType type){
+  private String subitemType2Resource(FormatableType type) {
     switch (type) {
       case COURSE:
         return getString(R.string.LWR_course_subitem);
@@ -184,14 +181,14 @@ public class InfoActivity extends AppCompatActivity {
   }
 
   //Automatic Dynamic but does not work
-//  private Map<String, String> buildStringMap(){
-//    Map<String, String> translationMap = new HashMap<>();
-//    List<Field> fields = Arrays.asList(R.string.class.getFields());
-//    fields.stream()
-//            .filter(f -> f.getName().substring(0,8).equals("dbColumn"))
-//            .forEach(f -> translationMap.put(f.getName(), f.get()));
-//    return translationMap;
-//  }
+/*private Map<String, String> buildStringMap(){
+    Map<String, String> translationMap = new HashMap<>();
+    List<Field> fields = Arrays.asList(R.string.class.getFields());
+    fields.stream()
+            .filter(f -> f.getName().substring(0,8).equals("dbColumn"))
+            .forEach(f -> translationMap.put(f.getName(), f.get()));
+    return translationMap;
+  }*/
 
   //This is BAD.
   private Map<String,String> buildStringMap(){
