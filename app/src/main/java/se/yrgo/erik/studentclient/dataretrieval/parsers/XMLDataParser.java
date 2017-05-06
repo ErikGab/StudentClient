@@ -26,7 +26,7 @@ import se.yrgo.erik.studentclient.dataretrieval.DataParserFactory;
 import se.yrgo.erik.studentclient.formatables.Course;
 import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.formatables.FormatableItem;
-import se.yrgo.erik.studentclient.formatables.FormatableType;
+import se.yrgo.erik.studentclient.formatables.ItemType;
 import se.yrgo.erik.studentclient.formatables.Student;
 
 public class XMLDataParser implements DataParser {
@@ -40,6 +40,12 @@ public class XMLDataParser implements DataParser {
 
   private XMLDataParser() {}
 
+  /** Converts an xml string containing student data to a list of formatables
+   *
+   * @param XMLdata raw XML data as a string
+   * @return a list of formatables (Student)
+   * @throws DataParserException
+   */
   @Override
   public List<Formatable> string2Students(String XMLdata) throws DataParserException {
     List<Formatable> returningStudents = new ArrayList<>();
@@ -61,6 +67,12 @@ public class XMLDataParser implements DataParser {
     return returningStudents;
   }
 
+  /** Converts an xml string containing course data to a list of formatables
+   *
+   * @param XMLdata raw XML data as a string
+   * @return a list of formatables (Course)
+   * @throws DataParserException
+   */
   @Override
   public List<Formatable> string2Courses(String XMLdata) throws DataParserException {
     List<Formatable> returningCourses = new ArrayList<>();
@@ -95,7 +107,7 @@ public class XMLDataParser implements DataParser {
         }
       }
     }
-    return new FormatableItem(FormatableType.PHONENUMBERS, 1, phoneMap);
+    return new FormatableItem(ItemType.PHONENUMBERS, 1, phoneMap);
   }
 
   private List<Course> extractCoursesFromStudent(Element courseElement) {

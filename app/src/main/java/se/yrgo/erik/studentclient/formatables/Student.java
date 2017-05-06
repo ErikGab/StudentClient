@@ -10,7 +10,7 @@ import java.util.Map;
 public class Student implements Formatable{
 
   private int id;
-  private final FormatableType ITEMTYPE = FormatableType.STUDENT;
+  private final ItemType ITEMTYPE = ItemType.STUDENT;
   private Map<String, String> properties;
   private List<Formatable> subItems = new ArrayList<>();
   private static final String TAG = "Student";
@@ -21,16 +21,6 @@ public class Student implements Formatable{
     properties.put("name", name);
     properties.put("surname", surname);
     Log.v(TAG, "new created with id "+id);
-  }
-
-  public Student(int id, String name, String surname, int age, String postAddress,
-                 String streetAddress) {
-    this(id, name, surname, age, postAddress, streetAddress, null, null);
-  }
-
-  public Student(int id, String name, String surname, int age, String postAddress,
-                 String streetAddress, List<Course> courses) {
-    this(id, name, surname, age, postAddress, streetAddress, null, courses);
   }
 
   public Student(int id, String name, String surname, int age, String postAddress,
@@ -55,20 +45,20 @@ public class Student implements Formatable{
         subItems.add(course);
       }
     }
-    Log.v(TAG, "new created with id "+id);
+    Log.v(TAG, "instance created with id " + id);
   }
 
   public Student(int id, Map<String,String> properties, List<Formatable> subItems) {
     this.id = id;
     this.properties = properties;
     this.subItems = subItems;
-    Log.v(TAG, "new created with id "+id);
+    Log.v(TAG, "instance created with id " + id);
   }
 
   public Student(int id, Map<String,String> properties) {
     this.id = id;
     this.properties = properties;
-    Log.v(TAG, "new created with id "+id);
+    Log.v(TAG, "instance created with id " + id);
   }
 
   @Override
@@ -77,7 +67,7 @@ public class Student implements Formatable{
   }
 
   @Override
-  public FormatableType getItemType() {
+  public ItemType getItemType() {
     return ITEMTYPE;
   }
 
@@ -101,13 +91,13 @@ public class Student implements Formatable{
 
   @Override
   public String toString() {
-    Log.v(TAG, "with id "+id+ " returning String");
+    Log.v(TAG, "with id " + id + " returning String");
     return getName() + " " + getSurname();
   }
 
   @Override
   public String toListViewString() {
-    Log.v(TAG, "with id "+id+ " returning ListViewString");
+    Log.v(TAG, "with id " + id + " returning ListViewString");
     StringBuilder sb = new StringBuilder()
             .append(getName())
             .append(" ")
@@ -121,7 +111,7 @@ public class Student implements Formatable{
 
   @Override
   public String toListViewStringHeader() {
-    Log.v(TAG, "with id "+id+ " returning ListViewStringHeader");
+    Log.v(TAG, "with id " + id + " returning ListViewStringHeader");
     if (properties.containsKey("status") && !properties.get("status").equals("null")) {
       return properties.get("status");
     } else {

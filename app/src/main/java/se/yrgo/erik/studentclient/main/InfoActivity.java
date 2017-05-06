@@ -13,9 +13,8 @@ import android.widget.ListView;
 import se.yrgo.erik.studentclient.formatables.Formatable;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
-import se.yrgo.erik.studentclient.formatables.FormatableType;
+import se.yrgo.erik.studentclient.formatables.ItemType;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +24,11 @@ import java.util.stream.Collectors;
 public class InfoActivity extends AppCompatActivity {
 
   private Formatable currentItem;
-  private List<FormatableType> subitemTypes;
+  private List<ItemType> subitemTypes;
   private static final String TAG = "InfoActivity";
   private ListView listView;
   private int listViewClickId;
-  private FormatableType listViewClickType;
+  private ItemType listViewClickType;
   private DataRetrievalService drs;
 
   @Override
@@ -50,7 +49,7 @@ public class InfoActivity extends AppCompatActivity {
     listView.setAdapter(new ListViewRowAdapter(formatable2ListViewRows()));
   }
 
-  private List<FormatableType> findSubItemTypes() {
+  private List<ItemType> findSubItemTypes() {
     Log.v(TAG, "findSubItemTypes");
     return currentItem.getSubItems().stream()
             .map(i -> i.getItemType())
@@ -58,20 +57,19 @@ public class InfoActivity extends AppCompatActivity {
             .collect(Collectors.toList());
   }
 
+  //Converts a formatable to a list of ListViewRows
   private List<ListViewRow> formatable2ListViewRows() {
     Log.v(TAG, "formatable2ListViewRows");
     List<ListViewRow> returningList = new ArrayList<>();
-    returningList.add(new ListViewRow(FormatableType.HEADER,
-            itemType2Resource(currentItem.getItemType()), getString(R.string.LWR_header_row2))
-    );
+    returningList.add(new ListViewRow(ItemType.HEADER,
+            itemType2Resource(currentItem.getItemType()), getString(R.string.LWR_header_row2)));
     for (String key : currentItem.getProperties().keySet()) {
-      returningList.add(new ListViewRow(FormatableType.OTHER, translate(key),
-              currentItem.getProperties().get(key))
-      );
+      returningList.add(new ListViewRow(ItemType.OTHER, translate(key),
+              currentItem.getProperties().get(key)));
     }
-    for (FormatableType type : subitemTypes) {
-      if (type == FormatableType.PHONENUMBERS) {
-        returningList.add(new ListViewRow(FormatableType.HEADER, subitemType2Resource(type),
+    for (ItemType type : subitemTypes) {
+      if (type == ItemType.PHONENUMBERS) {
+        returningList.add(new ListViewRow(ItemType.HEADER, subitemType2Resource(type),
                 getString(R.string.LWR_header_row2))
         );
         Map<String, String> phoneNumbers = currentItem.getSubItems().stream()
@@ -80,12 +78,12 @@ public class InfoActivity extends AppCompatActivity {
                 .get(0)
                 .getProperties();
         for (String phonetype : phoneNumbers.keySet()) {
-          returningList.add(new ListViewRow(FormatableType.PHONENUMBERS, translate(phonetype),
+          returningList.add(new ListViewRow(ItemType.PHONENUMBERS, translate(phonetype),
                   phoneNumbers.get(phonetype))
           );
         }
-      } else if (type == FormatableType.COURSE || type == FormatableType.STUDENT) {
-        returningList.add(new ListViewRow(FormatableType.HEADER, subitemType2Resource(type),
+      } else if (type == ItemType.COURSE || type == ItemType.STUDENT) {
+        returningList.add(new ListViewRow(ItemType.HEADER, subitemType2Resource(type),
                 getString(R.string.LWR_header_row2))
         );
         List<Formatable> items = currentItem.getSubItems().stream()
@@ -113,15 +111,14 @@ public class InfoActivity extends AppCompatActivity {
   }
 
   private class resetActivity extends AsyncTask<Void, Void, Void> {
-
     @Override
     protected Void doInBackground(Void... params) {
       if (listViewClickType != currentItem.getItemType()) {
         try {
-          if (listViewClickType == FormatableType.STUDENT) {
+          if (listViewClickType == ItemType.STUDENT) {
             Session.getInstance().clickedStudent = drs.fullInfoForStudent(listViewClickId).get(0);
             Session.getInstance().lastClick = Session.getInstance().clickedStudent;
-          } else if (listViewClickType == FormatableType.COURSE) {
+          } else if (listViewClickType == ItemType.COURSE) {
             Session.getInstance().clickedCourse = drs.fullInfoForCourse(listViewClickId).get(0);
             Session.getInstance().lastClick = Session.getInstance().clickedCourse;
           }
@@ -144,7 +141,7 @@ public class InfoActivity extends AppCompatActivity {
 
   }
 
-  private String itemType2Resource(FormatableType type) {
+  private String itemType2Resource(ItemType type) {
     switch (type) {
       case COURSE:
         return getString(R.string.LWR_course);
@@ -157,7 +154,7 @@ public class InfoActivity extends AppCompatActivity {
     }
   }
 
-  private String subitemType2Resource(FormatableType type) {
+  private String subitemType2Resource(ItemType type) {
     switch (type) {
       case COURSE:
         return getString(R.string.LWR_course_subitem);

@@ -14,12 +14,10 @@ public class DataRetrieverFactory {
   };
   private static Map<String,DataRetriever> retrievers;
   private static final String TAG = "DataRetrieverFactory";
-  private static DataRetrieverFactory instance;
-  private static final String DEFAULT = "default";
+  private static final String DEFAULT = "defaultDR"; // defaultDR = DefaultDataRetriever
 
   static {
     Log.v(TAG, "static block running");
-    instance = new DataRetrieverFactory();
     retrievers = new HashMap<>();
     try{
       for (String className : classNames) {
@@ -33,15 +31,21 @@ public class DataRetrieverFactory {
 
   private DataRetrieverFactory() {}
 
-  public static void register(String format, DataRetriever retriever) {
-    Log.v(TAG, "registering: "+format);
-    retrievers.put(format, retriever);
+  /** Used to register new retrievers to this factory
+   *
+   * @param name name of DataRetriever
+   * @param retriever instance of DataRetriever
+   */
+  public static void register(String name, DataRetriever retriever) {
+    Log.v(TAG, "registering: "+name);
+    retrievers.put(name, retriever);
   }
 
-//  public static DataRetrieverFactory getInstance() {
-//    return instance;
-//  }
-
+  /** Returns the default Data Data Retriever
+   *
+   * @return Default Data Retriever
+   * @throws DataRetrievalException
+   */
   public static DataRetriever getRetriever() throws DataRetrievalException {
     if (retrievers.containsKey(DEFAULT)) {
       return retrievers.get(DEFAULT);
@@ -51,6 +55,12 @@ public class DataRetrieverFactory {
     }
   }
 
+  /** Returns the requested Data Data Retriever
+   *
+   * @param requestedType name of requested Retriever
+   * @return Requested Data Retriever
+   * @throws DataRetrievalException
+   */
   public static DataRetriever getRetriever(String requestedType) throws DataRetrievalException {
     if (retrievers.containsKey(requestedType)) {
       return retrievers.get(requestedType);

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import se.yrgo.erik.studentclient.formatables.Formatable;
-import se.yrgo.erik.studentclient.formatables.FormatableType;
+import se.yrgo.erik.studentclient.formatables.ItemType;
 
 public class FormatableAdapter extends BaseAdapter {
   private final ArrayList<Formatable> list;
@@ -54,8 +54,8 @@ public class FormatableAdapter extends BaseAdapter {
     return result;
   }
 
-  private void setImage(FormatableType type, ImageView view) {
-    Map<FormatableType, Integer> imageMap = generateImageMap();
+  private void setImage(ItemType type, ImageView view) {
+    Map<ItemType, Integer> imageMap = generateImageMap();
     if (imageMap.containsKey(type)) {
       view.setImageResource(imageMap.get(type));
     }  else {
@@ -63,10 +63,10 @@ public class FormatableAdapter extends BaseAdapter {
     }
   }
 
-  private Map<FormatableType, Integer> generateImageMap() {
-    Map<FormatableType, Integer> imageMap = new HashMap<>();
-    imageMap.put(FormatableType.COURSE, R.mipmap.course);
-    imageMap.put(FormatableType.STUDENT, R.mipmap.student);
+  private Map<ItemType, Integer> generateImageMap() {
+    Map<ItemType, Integer> imageMap = new HashMap<>();
+    imageMap.put(ItemType.COURSE, R.mipmap.course);
+    imageMap.put(ItemType.STUDENT, R.mipmap.student);
     return imageMap;
   }
 

@@ -10,8 +10,12 @@ import java.util.stream.Collectors;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalException;
 import se.yrgo.erik.studentclient.dataretrieval.DataRetrievalService;
 import se.yrgo.erik.studentclient.formatables.Course;
-import se.yrgo.erik.studentclient.formatables.FormatableType;
+import se.yrgo.erik.studentclient.formatables.ItemType;
 
+/**
+ * An AsyncTask that fills the cache database with all possible responses.
+ * It uses the DataRetrieverService that will automatically cache all responses getting throug.
+ */
 public class PreCacheRunner extends AsyncTask<Void, Void, Void> {
 
   private final String TAG = "PreCacheRunner";
@@ -28,24 +32,23 @@ public class PreCacheRunner extends AsyncTask<Void, Void, Void> {
     drs = DataRetrievalService.getInstance();
     speed = FAST;
     Log.v(TAG, "STARTING");
+    initProgress();
     getStudents();
     Log.v(TAG, "STUDENTS DONE: cached " + counter + " students.");
     getCourses();
     Log.v(TAG, "COURSES DONE: cached " + counter + " courses.");
-    this.cancel(true); // Behövs denna?
+    this.cancel(true); // Hmm is this necessary?
     return null;
   }
 
   private void getStudents() {
     try {
-      counter = 0;
-      target = drs.allStudents().size() + drs.allCourses().size();
       getStudentsForCourse();
       getDetailedStudent(drs.allStudents().stream()
               .map(f -> f.getId())
               .collect(Collectors.toList()));
     } catch (DataRetrievalException dre) {
-      Log.v(TAG, "Failed");
+      Log.v(TAG, "Failed getStudents");
     }
   }
 
@@ -56,24 +59,18 @@ public class PreCacheRunner extends AsyncTask<Void, Void, Void> {
         phase(speed);
       }
     } catch (DataRetrievalException dre) {
-      Log.v(TAG, "Failed");
+      Log.v(TAG, "Failed getStudentsForCourse");
     }
-  }
-
-  public int getProgress(){
-    return progress;
   }
 
   private void getCourses() {
     try {
-      //counter = 0;
-      //target = drs.allCourses().size();
       getCoursesForYear();
       getDetailedCourse(drs.allCourses().stream()
               .map(f -> f.getId())
               .collect(Collectors.toList()));
     } catch (DataRetrievalException dre) {
-      Log.v(TAG, "Failed");
+      Log.v(TAG, "Failed getCourses");
     }
   }
 
@@ -84,20 +81,20 @@ public class PreCacheRunner extends AsyncTask<Void, Void, Void> {
         phase(speed);
       }
     } catch (DataRetrievalException dre) {
-      Log.v(TAG, "Failed");
+      Log.v(TAG, "Failed getCoursesForYear");
     }
   }
 
   private List<Integer> getCourseIds() throws DataRetrievalException {
     return drs.allCourses().stream()
-            .filter(f -> f.getItemType() == FormatableType.COURSE)
+            .filter(f -> f.getItemType() == ItemType.COURSE)
             .map(f -> f.getId())
             .collect(Collectors.toList());
   }
 
   private List<Integer> getYears() throws DataRetrievalException {
     return drs.allCourses().stream()
-            .filter(f -> f.getItemType() == FormatableType.COURSE)
+            .filter(f -> f.getItemType() == ItemType.COURSE)
             .map(f -> Integer.parseInt(((Course) f).getYear()))
             .collect(Collectors.toList());
   }
@@ -129,10 +126,26 @@ public class PreCacheRunner extends AsyncTask<Void, Void, Void> {
     }
   }
 
+  private void initProgress() {
+    try {
+      counter = 0;
+      target = drs.allStudents().size() + drs.allCourses().size();
+    } catch (DataRetrievalException dre) {
+      Log.v(TAG, "Failed initProgress");
+    }
+  }
+
   private void updateProgress(){
     if (target > 0) {
       progress = (int) (100 * ( (double) counter / target));
     }
+  }
+
+  /**
+   * @return Returns an int (0 .. 100) describing the percentage of completion of the PreCacheTask.
+   */
+  public int getProgress(){
+    return progress;
   }
 
 }

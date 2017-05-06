@@ -28,6 +28,15 @@ public class CacheDB {
     dbHelper.close();
   }
 
+  /**
+   * Add a raw response from server to CacheDB.
+   * If an older resonse (of same request) is in DB it will be deleted before new is inserted.
+   *
+   * @param response raw data from server ie xml or json string
+   * @param request what type of request that was run to recieve the response. ie "allStudents"
+   * @param contentType "xml" or "json"
+   * @param requestType "student" or "course"
+   */
   public void addResponse(String response, String request, String contentType, String requestType) {
     ContentValues values = new ContentValues();
     values.put(CacheDBHelper.COLUMN_CONTENTTYPE, contentType);
@@ -43,13 +52,24 @@ public class CacheDB {
     }
   }
 
+  /**
+   * Retrive cached response from database.
+   *
+   * @param request the type of request that you want cached response for ie "allStudents"
+   * @return Returns a Map containing response data for requested request.
+   *   Map contains data for:
+   *     * "time": when the response was cached
+   *     * "contentType": json or xml
+   *     * "requestType": ie "allStudents"
+   *     * "response": raw json or xml data in a string
+   */
   public Map<String, String> getResponse(String request) {
 
     String table = CacheDBHelper.TABLE_RESPONSECACHE;
     String[] columns = {CacheDBHelper.COLUMN_TIMESTAMP, CacheDBHelper.COLUMN_CONTENTTYPE,
             CacheDBHelper.COLUMN_REQUESTTYPE, CacheDBHelper.COLUMN_RESPONSE};
     String where = CacheDBHelper.COLUMN_REQUEST + " = \"" + request + "\"";
-    String orderBy = CacheDBHelper.COLUMN_TIMESTAMP; // THIS IS REDUNDANCY, ONLY ONE TUPEL SHOULD BE QUERIED
+    String orderBy = CacheDBHelper.COLUMN_TIMESTAMP; // THIS IS REDUNDANCY, ONLY ONE SHOULD BE QUERIED
     Cursor cursor = database.query(table, columns, where, null, null, null, orderBy);
     cursor.moveToFirst();
     Map<String, String> responseMap = new HashMap<>();
@@ -62,14 +82,21 @@ public class CacheDB {
     return responseMap;
   }
 
+  /**
+   *  Clears the cache database.
+   */
   public void clearCache(){
     try {
       database.delete(CacheDBHelper.TABLE_RESPONSECACHE, null, null);
     } catch (android.database.sqlite.SQLiteException sqle) {
-      Log.v(TAG, "Failed to Clear cache.");
+      Log.v(TAG, "Failed to ClearCache cache.");
     }
   }
 
+  /**
+   *
+   * @return Returns the number of responses that is cached in the database
+   */
   public int getSize(){
     try {
       Cursor cursor = database.rawQuery("SELECT " + CacheDBHelper.COLUMN_ID

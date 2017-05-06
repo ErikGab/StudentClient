@@ -16,11 +16,11 @@ public class DataParserFactory {
   };
   private static Map<String,DataParser> parsers;
   private static final String TAG = "DataParserFactory";
-  private static DataParserFactory instance;
+  //private static DataParserFactory instance;
 
   static {
     Log.v(TAG, "static block running");
-    instance = new DataParserFactory();
+    //instance = new DataParserFactory();
     parsers = new HashMap<>();
     try{
       for (String className : classNames) {

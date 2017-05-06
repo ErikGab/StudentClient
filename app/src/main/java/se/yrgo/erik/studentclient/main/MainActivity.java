@@ -2,14 +2,11 @@ package se.yrgo.erik.studentclient.main;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import se.yrgo.erik.studentclient.dataretrieval.CacheDB.PreCacheRunner;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     studentButton.setOnClickListener( new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        //Session.getInstance().selectActivity= Session.ListType.STUDENT;
         switch2StudentsActivity();
       }
     });
@@ -37,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     courseButton.setOnClickListener( new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        //Session.getInstance().selectActivity= Session.ListType.COURSE;
         switch2CoursesActivity();
       }
     });
@@ -45,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     settingsButton.setOnClickListener( new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        //Session.getInstance().selectActivity= Session.ListType.COURSE;
         switch2SettingsActivity();
       }
     });

@@ -1,10 +1,9 @@
 package se.yrgo.erik.studentclient.formatables;
 
-public enum FormatableType {
-
+public enum ItemType {
   HEADER,
   STUDENT,
   COURSE,
   PHONENUMBERS,
-  OTHER;
+  OTHER
 }

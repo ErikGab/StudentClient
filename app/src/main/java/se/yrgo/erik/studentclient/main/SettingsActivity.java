@@ -2,12 +2,10 @@ package se.yrgo.erik.studentclient.main;
 
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import se.yrgo.erik.studentclient.dataretrieval.CacheDB.PreCacheRunner;
@@ -37,7 +35,6 @@ public class SettingsActivity extends AppCompatActivity {
     updateFormatButton();
 
     formatBtn.setOnClickListener(new View.OnClickListener() {
-
       @Override
       public void onClick(View v) {
         String currentFormat = drs.getFormat();
@@ -53,19 +50,17 @@ public class SettingsActivity extends AppCompatActivity {
     new SizeOfCacheCheck().execute();
 
     runPreCacheBtn.setOnClickListener(new View.OnClickListener() {
-
         @Override
         public void onClick(View v) {
           runPreCacheBtn.setClickable(false);
-          new Update().execute();
+          new RunPreCacheRunner().execute();
         }
     });
 
     clearCacheBtn.setOnClickListener(new View.OnClickListener() {
-
       @Override
       public void onClick(View v) {
-        new Clear().execute();
+        new ClearCache().execute();
       }
     });
 
@@ -75,11 +70,11 @@ public class SettingsActivity extends AppCompatActivity {
     formatBtn.setText(getString(R.string.switch_format_btn_text) + drs.getFormat());
   }
 
-  protected class Update extends AsyncTask<Integer, Integer, Integer> {
+  protected class RunPreCacheRunner extends AsyncTask<Integer, Integer, Integer> {
 
     PreCacheRunner pcr;
 
-    public Update() {
+    public RunPreCacheRunner() {
       super();
       this.pcr = new PreCacheRunner();
       this.pcr.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -113,7 +108,7 @@ public class SettingsActivity extends AppCompatActivity {
 
   }
 
-  protected class Clear extends AsyncTask<Integer, Integer, Integer> {
+  protected class ClearCache extends AsyncTask<Integer, Integer, Integer> {
 
     @Override
     protected Integer doInBackground(Integer... integers) {

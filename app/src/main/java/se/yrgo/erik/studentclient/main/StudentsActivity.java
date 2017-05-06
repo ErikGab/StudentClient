@@ -84,8 +84,7 @@ public class StudentsActivity extends AppCompatActivity {
       super.onPostExecute(result);
       listView.setAdapter(new FormatableAdapter(studentsList));
       courseSpinner.setAdapter(new ArrayAdapter<String>(StudentsActivity.this,
-              R.layout.spinner_item,R.id.textview, createListForSpinner(coursesList))
-      );
+              R.layout.spinner_item,R.id.textview, createListForSpinner(coursesList)));
       courseSpinner.setSelection(Session.getInstance().courseSpinnerPossision);
     }
   }

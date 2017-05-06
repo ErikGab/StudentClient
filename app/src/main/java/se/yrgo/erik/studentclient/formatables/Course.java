@@ -10,7 +10,7 @@ import java.util.Map;
 public class Course implements Formatable {
 
   private int id;
-  private final FormatableType ITEMTYPE = FormatableType.COURSE;
+  private final ItemType ITEMTYPE = ItemType.COURSE;
   private Map<String, String> properties;
   private List<Formatable> subItems = new ArrayList<>();
   private static final String TAG = "Course";
@@ -41,20 +41,20 @@ public class Course implements Formatable {
         subItems.add(student);
       }
     }
-    Log.v(TAG, "new created with id "+id);
+    Log.v(TAG, "instance created with id " + id);
   }
 
   public Course(int id, Map<String,String> properties, List<Formatable> subItems) {
     this.id = id;
     this.properties = properties;
     this.subItems = subItems;
-    Log.v(TAG, "new created with id "+id);
+    Log.v(TAG, "inctance created with id " + id);
   }
 
   public Course(int id, Map<String,String> properties) {
     this.id = id;
     this.properties = properties;
-    Log.v(TAG, "new created with id "+id);
+    Log.v(TAG, "instance created with id " + id);
   }
 
   @Override
@@ -63,7 +63,7 @@ public class Course implements Formatable {
   }
 
   @Override
-  public FormatableType getItemType() {
+  public ItemType getItemType() {
     return ITEMTYPE;
   }
 
@@ -88,13 +88,13 @@ public class Course implements Formatable {
 
   @Override
   public String toString() {
-    Log.v(TAG, "with id "+id+" returning String");
+    Log.v(TAG, "with id " + id + " returning String");
     return getName();
   }
 
   @Override
   public String toListViewString(){
-    Log.v(TAG, "with id "+id+" returning ListViewString");
+    Log.v(TAG, "with id " + id + " returning ListViewString");
     StringBuilder sb = new StringBuilder()
             .append(getName());
     if (properties.containsKey("grade") && !properties.get("grade").equals("null")) {
@@ -106,7 +106,7 @@ public class Course implements Formatable {
 
   @Override
   public String toListViewStringHeader() {
-    Log.v(TAG, "with id "+id+ " returning ListViewStringHeader");
+    Log.v(TAG, "with id " + id + " returning ListViewStringHeader");
     if (properties.containsKey("status") && !properties.get("status").equals("null")) {
       return properties.get("status");
     } else {

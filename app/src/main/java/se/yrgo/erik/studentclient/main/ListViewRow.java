@@ -1,29 +1,30 @@
 package se.yrgo.erik.studentclient.main;
 
-import se.yrgo.erik.studentclient.formatables.FormatableType;
+import se.yrgo.erik.studentclient.formatables.ItemType;
 
 public class ListViewRow {
-  private FormatableType rowType;
+
+  private ItemType rowType;
   private String rowName;
   private String rowData;
   private int traceId;
 
-  public ListViewRow(FormatableType rowType, String rowData) {
+  public ListViewRow(ItemType rowType, String rowData) {
     this(rowType, null, rowData);
   }
 
-  public ListViewRow(FormatableType rowType, String rowName, String rowData) {
+  public ListViewRow(ItemType rowType, String rowName, String rowData) {
     this(rowType, rowName, rowData, 0);
   }
 
-  public ListViewRow(FormatableType rowType, String rowName, String rowData, int traceId) {
+  public ListViewRow(ItemType rowType, String rowName, String rowData, int traceId) {
     this.rowData = rowData;
     this.rowName = rowName;
     this.rowType = rowType;
     this.traceId = traceId;
   }
 
-  public FormatableType getRowType() {
+  public ItemType getRowType() {
     return rowType;
   }
 

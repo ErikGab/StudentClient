@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class FormatableMockData {
 
-  private FormatableMockData(){};
+  private FormatableMockData() {}
 
   private static List<Student> mockDataFullStudent;
   private static List<Student> mockDataStudent;
@@ -28,7 +28,7 @@ public class FormatableMockData {
               put("streetAddress", "Ramminnet 123");
             }},
             new ArrayList<Formatable>() {{
-              add(new FormatableItem(FormatableType.PHONENUMBERS,
+              add(new FormatableItem(ItemType.PHONENUMBERS,
                       1,
                       new LinkedHashMap<String,String>() {{
                         put("mobile", "0707-776655");
@@ -100,18 +100,22 @@ public class FormatableMockData {
       put("name", "JAVA-102_2017");
     }}));
   }
+
   public static List<Student> getStudent(int id) {
     Log.v(TAG, "returning detailed list of students");
     return mockDataFullStudent;
   }
+
   public static List<Course> getCourse(int id) {
     Log.v(TAG, "returning detailed list of courses");
     return mockDataFullCourse;
   }
+
   public static List<Student> getStudentsByCourse(int id) {
     Log.v(TAG, "returning list of students");
     return mockDataStudent;
   }
+
   public static List<Course> getCoursesByYear(int id) {
     Log.v(TAG, "returning list of courses");
     return mockDataCourse;

@@ -1,7 +1,6 @@
 package se.yrgo.erik.studentclient.main;
 
 import android.graphics.Color;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import se.yrgo.erik.studentclient.formatables.FormatableType;
+import se.yrgo.erik.studentclient.formatables.ItemType;
 
 public class ListViewRowAdapter extends BaseAdapter {
   private final ArrayList<ListViewRow> list;
@@ -55,7 +54,7 @@ public class ListViewRowAdapter extends BaseAdapter {
     TextView secondRow = ((TextView) result.findViewById(android.R.id.text2));
     ImageView decoration = ((ImageView) result.findViewById(R.id.decoration));
 
-    if (item.getRowType() == FormatableType.HEADER) {
+    if (item.getRowType() == ItemType.HEADER) {
       firstRow.setText(item.getRowName());
       firstRow.setTextSize(28);
       firstRow.setTextColor(Color.DKGRAY);
@@ -75,8 +74,8 @@ public class ListViewRowAdapter extends BaseAdapter {
     return result;
   }
 
-  private void setImage(FormatableType type, ImageView view) {
-    Map<FormatableType, Integer> imageMap = generateImageMap();
+  private void setImage(ItemType type, ImageView view) {
+    Map<ItemType, Integer> imageMap = generateImageMap();
     if (imageMap.containsKey(type)) {
       view.setImageResource(imageMap.get(type));
     }  else {
@@ -84,12 +83,12 @@ public class ListViewRowAdapter extends BaseAdapter {
     }
   }
 
-  private Map<FormatableType, Integer> generateImageMap() {
-    Map<FormatableType, Integer> imageMap = new HashMap<>();
-    imageMap.put(FormatableType.COURSE, R.mipmap.course);
-    imageMap.put(FormatableType.STUDENT, R.mipmap.student);
-    imageMap.put(FormatableType.PHONENUMBERS, R.mipmap.phonenumber);
-    imageMap.put(FormatableType.OTHER, R.mipmap.other);
+  private Map<ItemType, Integer> generateImageMap() {
+    Map<ItemType, Integer> imageMap = new HashMap<>();
+    imageMap.put(ItemType.COURSE, R.mipmap.course);
+    imageMap.put(ItemType.STUDENT, R.mipmap.student);
+    imageMap.put(ItemType.PHONENUMBERS, R.mipmap.phonenumber);
+    imageMap.put(ItemType.OTHER, R.mipmap.other);
     return imageMap;
   }
 

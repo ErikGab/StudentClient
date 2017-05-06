@@ -20,9 +20,9 @@ public class ServerConnection {
 
   /** sends GET params to serverURL and returns response as String
    *
-   * @param serverURL
-   * @param getParams
-   * @return
+   * @param serverURL URL to the endpoint of the REST service.
+   * @param getParams key value pairs in MAP used as GET parmeters when sending request
+   * @return raw data from response
    * @throws ServerConnectionException
    */
   public static String connectAndGET(URL serverURL, Map<String,String> getParams)
@@ -61,7 +61,7 @@ public class ServerConnection {
   private static String getParamsToString(Map<String,String> getParams) {
     StringBuilder sb = new StringBuilder();
     sb.append("?");
-    int counter = 0;
+    int counter = 1;
     for (String key : getParams.keySet()) {
       sb.append(key + "=" + getParams.get(key));
       if (counter != getParams.size()) {

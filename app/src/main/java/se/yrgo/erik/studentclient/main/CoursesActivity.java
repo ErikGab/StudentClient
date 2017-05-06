@@ -44,7 +44,6 @@ public class CoursesActivity extends AppCompatActivity {
   }
 
   private class listAndSpinnerUpdate extends AsyncTask<Void, Void, Void> {
-
     @Override
     protected Void doInBackground(Void... params) {
       try {
@@ -62,9 +61,8 @@ public class CoursesActivity extends AppCompatActivity {
     @Override
     protected void onPostExecute(Void result) {
       super.onPostExecute(result);
-      yearSpinner.setAdapter(new ArrayAdapter<String>(CoursesActivity.this, R.layout.spinner_item, R.id.textview,
-              yearList)
-      );
+      yearSpinner.setAdapter(new ArrayAdapter<String>(CoursesActivity.this, R.layout.spinner_item,
+              R.id.textview, yearList));
       yearSpinner.setSelection(Session.getInstance().yearSpinnerPossision);
       listView.setAdapter(new FormatableAdapter(coursesList));
     }
@@ -81,7 +79,6 @@ public class CoursesActivity extends AppCompatActivity {
   }
 
   private class SwitchToInfoActivity extends AsyncTask<Void, Void, Void> {
-
     @Override
     protected Void doInBackground(Void... params) {
       try {
