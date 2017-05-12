@@ -43,6 +43,18 @@ public class InfoActivity extends AppCompatActivity {
     setListeners();
   }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    //drs = DataRetrievalService.getInstance();
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    drs.closeCache();
+  }
+
   private void init() {
     currentItem = Session.getInstance().lastClick;
     subitemTypes = findSubItemTypes();

@@ -49,6 +49,18 @@ public class StudentsActivity extends AppCompatActivity {
     setListeners();
   }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    //drs = DataRetrievalService.getInstance();
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    drs.closeCache();
+  }
+
   private List<String> createListForSpinner(List<Formatable> list) {
     Log.v(TAG, "createListForSpinner");
     List<String> returnee;

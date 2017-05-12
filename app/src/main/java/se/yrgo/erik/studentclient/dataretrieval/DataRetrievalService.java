@@ -2,6 +2,7 @@ package se.yrgo.erik.studentclient.dataretrieval;
 
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class DataRetrievalService {
     Log.v(TAG, "static block running");
     instance = new DataRetrievalService();
     cache = new CacheDB(Session.getInstance().context);
-    cache.open();
+    //cache.open();
   }
 
   private DataRetrievalService() {}
@@ -259,6 +260,18 @@ public class DataRetrievalService {
   public int cacheSize() {
     return cache.getSize();
   }
+
+  /** Closes cacheDB
+   *
+   */
+  public void closeCache() {
+    cache.close();
+  }
+
+  //NOTICE!! state of boolean is changed from isOpen to isClosed in order to match DRS if-statements
+  //private static Boolean cacheDBIsClosed() {
+  //  return !cache.status();
+  //}
 
   /** Sets a requested retriever. If not set a default retriever will be used.
    *

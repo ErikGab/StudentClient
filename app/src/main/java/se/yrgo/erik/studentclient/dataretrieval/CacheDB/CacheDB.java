@@ -14,18 +14,23 @@ public class CacheDB {
 
   private SQLiteDatabase database;
   private CacheDBHelper dbHelper;
+  private boolean isOpen;
   private static final String TAG = "CacheDB";
 
   public CacheDB(Context context) {
     dbHelper = new CacheDBHelper(context);
   }
 
-  public void open() throws SQLException {
+  private void open() {
     database = dbHelper.getWritableDatabase();
+    isOpen = true;
+    Log.v(TAG, "DATABASE OPENED");
   }
 
   public void close() {
     dbHelper.close();
+    isOpen = false;
+    Log.v(TAG, "DATABASE CLOSED");
   }
 
   /**
@@ -45,10 +50,11 @@ public class CacheDB {
     values.put(CacheDBHelper.COLUMN_RESPONSE, response);
     String where = CacheDBHelper.COLUMN_REQUEST + " = \"" + request + "\"";
     try {
+      openIfNeeded();
       database.delete(CacheDBHelper.TABLE_RESPONSECACHE, where, null);
       database.insert(CacheDBHelper.TABLE_RESPONSECACHE, null, values);
     } catch (android.database.sqlite.SQLiteException sqle) {
-      Log.v(TAG, "DEAR SIR, YOUR SQL IS BAD.");
+      Log.v(TAG, "Failed to addResponse.");
     }
   }
 
@@ -70,6 +76,7 @@ public class CacheDB {
             CacheDBHelper.COLUMN_REQUESTTYPE, CacheDBHelper.COLUMN_RESPONSE};
     String where = CacheDBHelper.COLUMN_REQUEST + " = \"" + request + "\"";
     String orderBy = CacheDBHelper.COLUMN_TIMESTAMP; // THIS IS REDUNDANCY, ONLY ONE SHOULD BE QUERIED
+    openIfNeeded();
     Cursor cursor = database.query(table, columns, where, null, null, null, orderBy);
     cursor.moveToFirst();
     Map<String, String> responseMap = new HashMap<>();
@@ -87,6 +94,7 @@ public class CacheDB {
    */
   public void clearCache(){
     try {
+      openIfNeeded();
       database.delete(CacheDBHelper.TABLE_RESPONSECACHE, null, null);
     } catch (android.database.sqlite.SQLiteException sqle) {
       Log.v(TAG, "Failed to ClearCache cache.");
@@ -99,6 +107,7 @@ public class CacheDB {
    */
   public int getSize(){
     try {
+      openIfNeeded();
       Cursor cursor = database.rawQuery("SELECT " + CacheDBHelper.COLUMN_ID
                                       + " FROM " + CacheDBHelper.TABLE_RESPONSECACHE, null);
       int size = cursor.getCount();
@@ -107,6 +116,12 @@ public class CacheDB {
     } catch (android.database.sqlite.SQLiteException sqle) {
       Log.v(TAG, "Failed to get cache size.");
       return 0;
+    }
+  }
+
+  private void openIfNeeded(){
+    if (isOpen == false) {
+      open();
     }
   }
 

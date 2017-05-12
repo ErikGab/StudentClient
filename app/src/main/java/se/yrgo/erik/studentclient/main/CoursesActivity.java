@@ -43,6 +43,18 @@ public class CoursesActivity extends AppCompatActivity {
     setListeners();
   }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    //drs = DataRetrievalService.getInstance();
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    drs.closeCache();
+  }
+
   private class listAndSpinnerUpdate extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {

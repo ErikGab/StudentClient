@@ -66,6 +66,18 @@ public class SettingsActivity extends AppCompatActivity {
 
   }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+//    drs = DataRetrievalService.getInstance();
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    drs.closeCache();
+  }
+
   private void updateFormatButton() {
     formatBtn.setText(getString(R.string.switch_format_btn_text) + drs.getFormat());
   }
