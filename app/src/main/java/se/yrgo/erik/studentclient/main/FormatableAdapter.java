@@ -65,8 +65,8 @@ public class FormatableAdapter extends BaseAdapter {
 
   private Map<ItemType, Integer> generateImageMap() {
     Map<ItemType, Integer> imageMap = new HashMap<>();
-    imageMap.put(ItemType.COURSE, R.mipmap.course);
-    imageMap.put(ItemType.STUDENT, R.mipmap.student);
+    imageMap.put(ItemType.COURSE, R.mipmap.course_bw);
+    imageMap.put(ItemType.STUDENT, R.mipmap.student_bw);
     return imageMap;
   }
 

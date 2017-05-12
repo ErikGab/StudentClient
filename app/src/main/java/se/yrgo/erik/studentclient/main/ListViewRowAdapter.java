@@ -85,10 +85,10 @@ public class ListViewRowAdapter extends BaseAdapter {
 
   private Map<ItemType, Integer> generateImageMap() {
     Map<ItemType, Integer> imageMap = new HashMap<>();
-    imageMap.put(ItemType.COURSE, R.mipmap.course);
-    imageMap.put(ItemType.STUDENT, R.mipmap.student);
-    imageMap.put(ItemType.PHONENUMBERS, R.mipmap.phonenumber);
-    imageMap.put(ItemType.OTHER, R.mipmap.other);
+    imageMap.put(ItemType.COURSE, R.mipmap.course_bw);
+    imageMap.put(ItemType.STUDENT, R.mipmap.student_bw);
+    imageMap.put(ItemType.PHONENUMBERS, R.mipmap.phonenumber_bw);
+    imageMap.put(ItemType.OTHER, R.mipmap.other_bw);
     return imageMap;
   }
 
